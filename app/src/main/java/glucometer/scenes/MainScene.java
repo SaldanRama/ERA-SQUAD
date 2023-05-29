@@ -82,7 +82,7 @@ public class MainScene {
         rootNode1.setAlignment(Pos.CENTER);
         rootNode1.getStyleClass().add("rootNode");
 
-        Scene scene = new Scene(new StackPane(rootNode1), 500, 400);
+        Scene scene = new Scene(new StackPane(rootNode1), 640, 480);
 
         // atur css
         scene.getStylesheets().add(getClass().getResource("/styles/main_style.css").toExternalForm());

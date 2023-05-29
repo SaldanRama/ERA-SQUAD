@@ -6,10 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
@@ -37,9 +39,14 @@ public class HomeScene {
         Text tRight = new Text("Meter");
         tRight.getStyleClass().add("title-text-right");
         TextFlow tfTitle = new TextFlow(tLeft, tRight);
+        HBox hbox = new HBox(5,tLeft,tRight);
+        hbox.setAlignment(Pos.CENTER);
 
         // Top Logo
         ImageView ivLogo = new ImageView("/images/logo.png");
+        ivLogo.setFitWidth(85); 
+        ivLogo.setFitHeight(85);
+
 
         // Text Desc
         Label lblDesc = new Label(
@@ -47,6 +54,8 @@ public class HomeScene {
         lblDesc.getStyleClass().add("desc-text");
         lblDesc.setWrapText(true);
         lblDesc.setMaxWidth(355);
+        lblDesc.setTextAlignment(TextAlignment.JUSTIFY);
+
 
         // Button Explore
         Region space = new Region();
@@ -55,7 +64,7 @@ public class HomeScene {
         btnExplore.getStyleClass().add("btn-explore");
 
         // VBOX layout
-        VBox vLayout = new VBox(tLeft, tRight, ivLogo, tfTitle, lblDesc, space, btnExplore);
+        VBox vLayout = new VBox(hbox, ivLogo, tfTitle, lblDesc, space, btnExplore);
         vLayout.setSpacing(8);
         spLayout.getChildren().add(vLayout);
         vLayout.setPadding(new Insets(45));
