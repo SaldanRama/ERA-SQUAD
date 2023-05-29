@@ -26,7 +26,6 @@ import glucometer.models.BeratBadan;
 import glucometer.models.GulaDarah;
 import glucometer.models.Obat;
 import glucometer.models.TekananDarah;
-
 import java.sql.SQLException;
 import glucometer.dataBase.DbGulaDarah;
 
@@ -51,6 +50,7 @@ public class MainScene {
 
         scene.getStylesheets().add(getClass().getResource("/styles/main_style.css").toExternalForm());
         stage.setScene(scene);
+        stage.show();
     }
 
 
@@ -75,7 +75,7 @@ public class MainScene {
         sectionRight.setId("section-right");
 
         button1.setOnAction(v -> {
-            stage.setScene(getScene2());
+            changeMenu(2);
         });
 
         VBox rootNode1 = new VBox(sectionRight);
@@ -102,7 +102,6 @@ public class MainScene {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         // membuat tabel view
         TableView<GulaDarah> tableGula = new TableView<>();
@@ -143,10 +142,13 @@ public class MainScene {
     private void changeMenu(int indexMenu) {
         switch (indexMenu) {
             case 1:
-                getScene1();
+                stage.setScene(getScene1());
+                stage.show();
                 break;
             case 2:
-                getScene2();
+                stage.setScene(getScene2());
+                stage.show();
+                break;
             default:
                 break;
         }

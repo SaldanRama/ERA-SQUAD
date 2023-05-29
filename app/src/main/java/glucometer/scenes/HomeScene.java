@@ -70,6 +70,7 @@ public class HomeScene {
 
         stage.setScene(scene);
         stage.show();
+        
     }
 }
 
