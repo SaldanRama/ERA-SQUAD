@@ -39,9 +39,6 @@ public class MainScene {
 
     // SCENE 1
     public void show() {
-        // SCENE
-        Text title = new Text("DashBoard");
-        title.setStyle("-fx-font-weight: bold;");
 
         // BUTTON
         Image img1 = new Image(getClass().getClassLoader().getResourceAsStream("images/logo.png"));
@@ -110,9 +107,15 @@ public class MainScene {
         rootNode.setSpacing(50);
         rootNode.setAlignment(Pos.CENTER);
 
-        VBox content = new VBox(title, rootNode);
+        Text newTitle = new Text("DashBoard");
+        newTitle.setStyle("-fx-font-weight: bold");
+        StackPane spTitle = new StackPane(newTitle);
+        spTitle.setPrefHeight(40);
+        spTitle.setStyle("-fx-background-color: red");
+
+        VBox content = new VBox(spTitle, rootNode);
         content.setSpacing(50);
-        content.setAlignment(Pos.CENTER);
+        content.setAlignment(Pos.TOP_CENTER);
 
         // SECTION RIGHT
         // VBox sectionRight = new VBox(title, button1, button2, button3, button4,
@@ -130,7 +133,7 @@ public class MainScene {
         // rootNode1.setAlignment(Pos.CENTER);
         // rootNode1.getStyleClass().add("rootNode");
 
-        Scene scene = new Scene(content, 500, 400);
+        Scene scene = new Scene(content, 720, 480);
 
         // atur css
         scene.getStylesheets().add(getClass().getResource("/styles/main_style.css").toExternalForm());

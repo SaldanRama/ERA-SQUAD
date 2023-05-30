@@ -24,7 +24,7 @@ public class HomeScene {
 
     public void show() {
         StackPane spLayout = new StackPane();
-        Scene scene = new Scene(spLayout, 640, 480);
+        Scene scene = new Scene(spLayout, 720, 480);
         scene.getStylesheets().add(getClass().getResource("/styles/home_style.css").toExternalForm());
 
         // Setting background
