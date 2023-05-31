@@ -50,8 +50,8 @@ public class MainScene {
         tombol1.setPadding(new Insets(10));
         tombol1.setStyle("-fx-background-color: red");
         tombol1.setOnMouseClicked(v -> {
-            SceneGulaDarah scGulaDarah = new SceneGulaDarah(stage);
-            // scGulaDarah.show2();
+            SceneGulaDarah scGulaDarah = new SceneGulaDarah(stage, SceneGulaDarah.getGulaDarahList());
+            stage.setScene(scGulaDarah);
         });
 
         Image img2 = new Image(getClass().getClassLoader().getResourceAsStream("images/logo.png"));
