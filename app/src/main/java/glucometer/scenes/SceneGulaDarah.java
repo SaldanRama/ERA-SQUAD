@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -127,10 +128,13 @@ public class SceneGulaDarah extends Scene {
             mainScene.show();
         });
 
-        root.getChildren().addAll(titleLabel, gulaDarahTextField, beforeBreakfastCheckBox, afterBreakfastCheckBox, beforeLunchCheckBox,
-                afterLunchCheckBox, beforeDinnerCheckBox, afterDinnerCheckBox, beforeSleepCheckBox, afterSleepCheckBox, fastingCheckBox, 
-                otherCheckBox, catatanTextField, tambahButton, kembaliButton);
+        HBox buttonBox = new HBox(10);
+        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
 
-        setRoot(root);
-    }
+        root.getChildren().addAll(titleLabel, gulaDarahTextField, beforeBreakfastCheckBox, afterBreakfastCheckBox, beforeLunchCheckBox,
+        afterLunchCheckBox, beforeDinnerCheckBox, afterDinnerCheckBox, beforeSleepCheckBox, afterSleepCheckBox, fastingCheckBox, 
+        otherCheckBox, catatanTextField, buttonBox);
+
+setRoot(root);
+}
 }
