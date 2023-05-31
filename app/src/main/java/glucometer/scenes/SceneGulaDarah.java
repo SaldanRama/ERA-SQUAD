@@ -33,6 +33,7 @@ public class SceneGulaDarah extends Scene {
         this.stage = stage;
         this.gulaDarahList = gulaDarahList;
 
+
         // Membuat tampilan scene
         VBox root = new VBox();
         root.setSpacing(10);
@@ -120,9 +121,15 @@ public class SceneGulaDarah extends Scene {
             catatanTextField.clear();
         });
 
+        Button kembaliButton = new Button("Kembali");
+        kembaliButton.setOnAction(event -> {
+            MainScene mainScene = new MainScene(stage);
+            mainScene.show();
+        });
+
         root.getChildren().addAll(titleLabel, gulaDarahTextField, beforeBreakfastCheckBox, afterBreakfastCheckBox, beforeLunchCheckBox,
                 afterLunchCheckBox, beforeDinnerCheckBox, afterDinnerCheckBox, beforeSleepCheckBox, afterSleepCheckBox, fastingCheckBox, 
-                otherCheckBox, catatanTextField, tambahButton);
+                otherCheckBox, catatanTextField, tambahButton, kembaliButton);
 
         setRoot(root);
     }

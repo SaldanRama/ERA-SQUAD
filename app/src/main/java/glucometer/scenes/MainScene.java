@@ -30,6 +30,9 @@ import glucometer.models.Obat;
 import glucometer.models.TekananDarah;
 import java.sql.SQLException;
 import glucometer.dataBase.DbGulaDarah;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+
 
 public class MainScene {
     private Stage stage;
@@ -39,10 +42,14 @@ public class MainScene {
     }
 
     // SCENE 1
+    /**
+     * 
+     */
     public void show() {
 
+
         // BUTTON
-                      //Gula Darah
+        // Gula Darah
         Image img1 = new Image(getClass().getClassLoader().getResourceAsStream("images/Gula_Darah.png"));
         ImageView imgView1 = new ImageView(img1);
         imgView1.setFitWidth(100);
@@ -54,7 +61,10 @@ public class MainScene {
             SceneGulaDarah scGulaDarah = new SceneGulaDarah(stage, SceneGulaDarah.getGulaDarahList());
             stage.setScene(scGulaDarah);
         });
+    
+    
 
+    
 
         //Tekanan Darah
         Image img2 = new Image(getClass().getClassLoader().getResourceAsStream("images/Tekanan_Darah.png"));
@@ -96,7 +106,7 @@ public class MainScene {
             // isi
         });
 
-        VBox sectionLeft = new VBox(tombol1, tombol2);
+        VBox sectionLeft = new VBox(tombol1,tombol2);
         sectionLeft.setSpacing(20);
         sectionLeft.setAlignment(Pos.CENTER);
         sectionLeft.setPrefWidth(80);
