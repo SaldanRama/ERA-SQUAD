@@ -1,5 +1,6 @@
 package glucometer.scenes;
 
+import javafx.scene.text.Font;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -41,51 +42,56 @@ public class MainScene {
     public void show() {
 
         // BUTTON
-        Image img1 = new Image(getClass().getClassLoader().getResourceAsStream("images/logo.png"));
+                      //Gula Darah
+        Image img1 = new Image(getClass().getClassLoader().getResourceAsStream("images/Gula_Darah.png"));
         ImageView imgView1 = new ImageView(img1);
-        imgView1.setFitWidth(80);
-        imgView1.setFitHeight(80);
-        Label title1 = new Label("Gula Darah");
+        imgView1.setFitWidth(100);
+        imgView1.setFitHeight(100);
+        Label title1 = new Label("");
         VBox tombol1 = new VBox(imgView1, title1);
         tombol1.setPadding(new Insets(10));
-        tombol1.setStyle("-fx-background-color: red");
         tombol1.setOnMouseClicked(v -> {
             SceneGulaDarah scGulaDarah = new SceneGulaDarah(stage);
             // scGulaDarah.show2();
         });
 
-        Image img2 = new Image(getClass().getClassLoader().getResourceAsStream("images/logo.png"));
+
+        //Tekanan Darah
+        Image img2 = new Image(getClass().getClassLoader().getResourceAsStream("images/Tekanan_Darah.png"));
         ImageView imgView2 = new ImageView(img2);
-        imgView2.setFitWidth(80);
-        imgView2.setFitHeight(80);
-        Label title2 = new Label("Tekanan Darah");
+        imgView2.setFitWidth(100);
+        imgView2.setFitHeight(100);
+        Label title2 = new Label("");
         VBox tombol2 = new VBox(imgView2, title2);
         tombol2.setPadding(new Insets(10));
-        tombol2.setStyle("-fx-background-color: red");
+        // tombol2.setStyle("-fx-background-color: red");
         tombol2.setOnMouseClicked(v -> {
             // isi
         });
 
-        Image img3 = new Image(getClass().getClassLoader().getResourceAsStream("images/logo.png"));
+
+        //Obat-obatan
+        Image img3 = new Image(getClass().getClassLoader().getResourceAsStream("images/Obat_Obatan.png"));
         ImageView imgView3 = new ImageView(img3);
-        imgView3.setFitWidth(80);
-        imgView3.setFitHeight(80);
-        Label title3 = new Label("Obat-Obatan");
+        imgView3.setFitWidth(100);
+        imgView3.setFitHeight(100);
+        Label title3 = new Label("");
         VBox tombol3 = new VBox(imgView3, title3);
         tombol3.setPadding(new Insets(10));
-        tombol3.setStyle("-fx-background-color: red");
         tombol3.setOnMouseClicked(v -> {
             // isi
         });
 
-        Image img4 = new Image(getClass().getClassLoader().getResourceAsStream("images/logo.png"));
+
+        //Berat Badan
+        Image img4 = new Image(getClass().getClassLoader().getResourceAsStream("images/Berat_Badan.png"));
         ImageView imgView4 = new ImageView(img4);
-        imgView4.setFitWidth(80);
-        imgView4.setFitHeight(80);
-        Label title4 = new Label("Berat Badan");
+        imgView4.setFitWidth(100);
+        imgView4.setFitHeight(100);
+        Label title4 = new Label("");
         VBox tombol4 = new VBox(imgView4, title4);
         tombol4.setPadding(new Insets(10));
-        tombol4.setStyle("-fx-background-color: red");
+        // tombol4.setStyle("-fx-background-color: red");
         tombol4.setOnMouseClicked(v -> {
             // isi
         });
@@ -108,13 +114,14 @@ public class MainScene {
         rootNode.setAlignment(Pos.CENTER);
 
         Text newTitle = new Text("DashBoard");
-        newTitle.setStyle("-fx-font-weight: bold");
+        newTitle.setStyle("-fx-font-weight: bold; -fx-font-size: 24px; -fx-font-family: League Spartan;");
         StackPane spTitle = new StackPane(newTitle);
-        spTitle.setPrefHeight(40);
-        spTitle.setStyle("-fx-background-color: red");
+        spTitle.setPrefHeight(70);
+        spTitle.setStyle("-fx-background-color: #9ED0F3;");
+
 
         VBox content = new VBox(spTitle, rootNode);
-        content.setSpacing(50);
+        content.setSpacing(10);
         content.setAlignment(Pos.TOP_CENTER);
 
         // SECTION RIGHT
