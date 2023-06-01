@@ -11,41 +11,11 @@ import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-<<<<<<< HEAD
-=======
-
-// public class DbGulaDarah {
-//     private Connection conn;
-//     private Statement stmt;
-
-//     public DbGulaDarah() {
-//         conn = DataBaseConfig.getConnection();
-//         setupTable();
-//     }
-
-//     private void setupTable() {
-//         try {
-//             DatabaseMetaData meta = conn.getMetaData();
-//             ResultSet rs = meta.getTables(null, null, "gulaDarah", null);
-//             if (!rs.next()) {
-//                 stmt = conn.createStatement();
-//                 String sql = "CREATE TABLE gulaDarah " +
-//                         "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-//                         " konsentrasiGula INTEGER NOT NULL, " +
-//                         " catatan TEXT NOT NULL)";
-//                 stmt.executeUpdate(sql);
-//             }
-//         } catch (SQLException e) {
-//             e.printStackTrace();
-//         }
-//     }
-
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
 
 public class DbGulaDarah {
-    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS gulaDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, gulaDarah INTEGER, waktu TEXT, catatan TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO gulaDarah (gulaDarah, waktu, catatan) VALUES (?, ?, ?)";
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS gulaDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, gulaDarah INTEGER, waktu TEXT, catatan TEXT, tanggal TEXT)";
+    private static final String INSERT_QUERY = "INSERT INTO gulaDarah (gulaDarah, waktu, catatan, tanggal) VALUES (?, ?, ?, ?)";
     private Statement stmt;
     private Connection conn;
 
@@ -67,6 +37,7 @@ public class DbGulaDarah {
             stmt.setInt(1, gulaDarah.getGulaDarah());
             stmt.setString(2, gulaDarah.getWaktu());
             stmt.setString(3, gulaDarah.getCatatan());
+            stmt.setString(4, gulaDarah.getTanggal());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,8 +54,9 @@ public class DbGulaDarah {
                 int gulaDarah = rs.getInt("gulaDarah");
                 String waktu = rs.getString("waktu");
                 String catatan = rs.getString("catatan");
+                String tanggal = rs.getString("tanggal");
 
-                GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan);
+                GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan, tanggal);
                 gulaDarahList.add(gulaDarahObj);
             }
         } catch (SQLException e) {
@@ -100,11 +72,13 @@ public class DbGulaDarah {
             stmt = conn.createStatement();
             for (GulaDarah gula : listGulaDarah) {
                 String sql = String.format("""
-                        INSERT INTO gulaDarah(gulaDarah, catatan)
+                        INSERT INTO gulaDarah(gulaDarah, waktu, catatan, tanggal)
                         VALUES('%d', '%s');
                         """,
                         gula.getGulaDarah(),
-                        gula.getCatatan());
+                        gula.getWaktu(),
+                        gula.getCatatan(),
+                        gula.getTanggal());
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {
