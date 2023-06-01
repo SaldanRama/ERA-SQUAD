@@ -1,5 +1,6 @@
 package glucometer.scenes;
 
+<<<<<<< HEAD
 import java.sql.SQLException;
 
 import glucometer.dataBase.DbGulaDarah;
@@ -7,20 +8,30 @@ import glucometer.dataBase.DbTekananDarah;
 import glucometer.models.GulaDarah;
 import glucometer.models.TekananDarah;
 import javafx.collections.FXCollections;
+=======
+import glucometer.dataBase.DbGulaDarah;
+import glucometer.models.GulaDarah;
+import glucometer.models.TekananDarah;
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+<<<<<<< HEAD
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+=======
+import javafx.scene.control.TextField;
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TableTekananDarah extends Scene {
+<<<<<<< HEAD
     private static ObservableList<TekananDarah> tekananDarahList = FXCollections.observableArrayList();
     private VBox rightSide = new VBox();
 
@@ -34,6 +45,23 @@ public class TableTekananDarah extends Scene {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+=======
+    private Stage stage;
+    private static ObservableList<TekananDarah> tekananDarahList;
+
+    public static ObservableList<TekananDarah> getTekananDarahList() {
+        return tekananDarahList;
+    }
+
+    public static void setTekananDarahList(ObservableList<TekananDarah> tekananDarahList) {
+        TableTekananDarah.tekananDarahList = tekananDarahList;
+    }
+
+    public TableTekananDarah(Stage stage, ObservableList<TekananDarah> tekananDarahList) {
+        super(new VBox(), 480, 480);
+        this.stage = stage;
+        this.tekananDarahList = tekananDarahList;
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
         // Membuat tampilan scene
         VBox root = new VBox();
@@ -43,6 +71,7 @@ public class TableTekananDarah extends Scene {
         Label titleLabel = new Label("Tekanan Darah");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
+<<<<<<< HEAD
         Button tambahButton = new Button("Tambah");
         tambahButton.setOnAction(event -> {
             SceneTekananDarah scTekananDarah = new SceneTekananDarah(stage, tekananDarahList);
@@ -87,13 +116,27 @@ public class TableTekananDarah extends Scene {
             daoTekananDarah.syncData(tekananDarahList);
         });
 
+=======
+       
+
+        Button tambahButton = new Button("Tambah");
+        tambahButton.setOnAction(event -> {
+            SceneTekananDarah scTekananDarah = new SceneTekananDarah(stage, SceneTekananDarah.getTekananDarahList());
+            stage.setScene(scTekananDarah);
+        });
+
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(v -> {
             MainScene mainScene = new MainScene(stage);
             mainScene.show();
         });
 
+<<<<<<< HEAD
         root.getChildren().addAll(titleLabel, tambahButton, kembaliButton, tableTekananDarah);
+=======
+        root.getChildren().addAll(titleLabel, tambahButton, kembaliButton);
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
         setRoot(root);
     }

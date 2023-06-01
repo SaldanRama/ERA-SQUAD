@@ -11,6 +11,36 @@ import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+<<<<<<< HEAD
+=======
+
+// public class DbGulaDarah {
+//     private Connection conn;
+//     private Statement stmt;
+
+//     public DbGulaDarah() {
+//         conn = DataBaseConfig.getConnection();
+//         setupTable();
+//     }
+
+//     private void setupTable() {
+//         try {
+//             DatabaseMetaData meta = conn.getMetaData();
+//             ResultSet rs = meta.getTables(null, null, "gulaDarah", null);
+//             if (!rs.next()) {
+//                 stmt = conn.createStatement();
+//                 String sql = "CREATE TABLE gulaDarah " +
+//                         "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                         " konsentrasiGula INTEGER NOT NULL, " +
+//                         " catatan TEXT NOT NULL)";
+//                 stmt.executeUpdate(sql);
+//             }
+//         } catch (SQLException e) {
+//             e.printStackTrace();
+//         }
+//     }
+
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
 
 public class DbGulaDarah {

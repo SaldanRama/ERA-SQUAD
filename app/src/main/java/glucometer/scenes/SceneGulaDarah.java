@@ -19,9 +19,24 @@ import javafx.stage.Stage;
 public class SceneGulaDarah extends Scene {
     private static ObservableList<GulaDarah> gulaDarahList;
 
+<<<<<<< HEAD
     public SceneGulaDarah(Stage stage, ObservableList<GulaDarah> gulaDarahList) {
         super(new VBox(), 480, 480);
        
+=======
+    // public static ObservableList<GulaDarah> getGulaDarahList() {
+    //     return gulaDarahList;
+    // }
+
+    // public static void setGulaDarahList(ObservableList<GulaDarah> gulaDarahList) {
+    //     SceneGulaDarah.gulaDarahList = gulaDarahList;
+    // }
+
+    public SceneGulaDarah(Stage stage, ObservableList<GulaDarah> gulaDarahList) {
+        super(new VBox(), 480, 480);
+       
+        // this.gulaDarahList = gulaDarahList;
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
         // Membuat tampilan scene
         VBox root = new VBox();
@@ -89,7 +104,10 @@ public class SceneGulaDarah extends Scene {
                     waktu = waktu.substring(0, waktu.length() - 2);
                 }
             }
+<<<<<<< HEAD
             
+=======
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
             GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan);
             gulaDarahList.add(gulaDarahObj);
 

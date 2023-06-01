@@ -2,19 +2,63 @@ package glucometer.dataBase;
 
 import java.sql.Statement;
 import java.sql.Connection;
+<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+=======
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import glucometer.models.GulaDarah;
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 import glucometer.models.TekananDarah;
 import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+<<<<<<< HEAD
 
 public class DbTekananDarah {
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS tekananDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, tekananSistolik INTEGER, tekananDiastolik INTEGER, tangan TEXT, catatan TEXT)";
     private static final String INSERT_QUERY = "INSERT INTO tekananDarah (tekananSistolik, tekananDiastolik, tangan, catatan) VALUES (?, ?, ?, ?)";
+=======
+// public class DbGulaDarah {
+//     private Connection conn;
+//     private Statement stmt;
+
+//     public DbGulaDarah() {
+//         conn = DataBaseConfig.getConnection();
+//         setupTable();
+//     }
+
+//     private void setupTable() {
+//         try {
+//             DatabaseMetaData meta = conn.getMetaData();
+//             ResultSet rs = meta.getTables(null, null, "gulaDarah", null);
+//             if (!rs.next()) {
+//                 stmt = conn.createStatement();
+//                 String sql = "CREATE TABLE gulaDarah " +
+//                         "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                         " konsentrasiGula INTEGER NOT NULL, " +
+//                         " catatan TEXT NOT NULL)";
+//                 stmt.executeUpdate(sql);
+//             }
+//         } catch (SQLException e) {
+//             e.printStackTrace();
+//         }
+//     }
+
+
+public class DbTekananDarah {
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS tekananDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, tekananSistolik INTEGER, tekananDiastolik INTEGER, tangan TEXT, catatan TEXT)";
+    private static final String INSERT_QUERY = "INSERT INTO tekananDarah (tekananSistolik, tekananDiastolik, tangan, catatan) VALUES (?, ?, ?)";
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
     private Statement stmt;
     private Connection conn;
 

@@ -17,6 +17,36 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
+<<<<<<< HEAD
+=======
+// public class DbGulaDarah {
+//     private Connection conn;
+//     private Statement stmt;
+
+//     public DbGulaDarah() {
+//         conn = DataBaseConfig.getConnection();
+//         setupTable();
+//     }
+
+//     private void setupTable() {
+//         try {
+//             DatabaseMetaData meta = conn.getMetaData();
+//             ResultSet rs = meta.getTables(null, null, "gulaDarah", null);
+//             if (!rs.next()) {
+//                 stmt = conn.createStatement();
+//                 String sql = "CREATE TABLE gulaDarah " +
+//                         "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                         " konsentrasiGula INTEGER NOT NULL, " +
+//                         " catatan TEXT NOT NULL)";
+//                 stmt.executeUpdate(sql);
+//             }
+//         } catch (SQLException e) {
+//             e.printStackTrace();
+//         }
+//     }
+
+
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 public class DbObat {
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS obat (id INTEGER PRIMARY KEY AUTOINCREMENT, namaObat TEXT, dosis TEXT, bentuk TEXT, catatan TEXT)";
     private static final String INSERT_QUERY = "INSERT INTO obat (namaObat, dosis, bentuk, catatan) VALUES (?, ?, ?)";

@@ -15,11 +15,39 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneTekananDarah extends Scene {
+<<<<<<< HEAD
     private static ObservableList<TekananDarah> tekananDarahList;
 
     public SceneTekananDarah(Stage stage, ObservableList<TekananDarah> tekananDarahList) {
         super(new VBox(), 480, 480);
 
+=======
+    private Stage stage;
+    private static ObservableList<TekananDarah> tekananDarahList;
+
+    public Stage getStage() {
+        return stage;
+    }
+    
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public static ObservableList<TekananDarah> getTekananDarahList() {
+        return tekananDarahList;
+    }
+
+    public static void setTekananDarahList(ObservableList<TekananDarah> tekananDarahList) {
+        SceneTekananDarah.tekananDarahList = tekananDarahList;
+    }
+
+
+
+    public SceneTekananDarah(Stage stage, ObservableList<TekananDarah> tekananDarahList) {
+        super(new VBox(), 480, 480);
+        this.stage = stage;
+        this.tekananDarahList = tekananDarahList;
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
         // Membuat tampilan scene
         VBox root = new VBox();
@@ -57,6 +85,10 @@ public class SceneTekananDarah extends Scene {
                 tangan = tangan.substring(0, tangan.length() - 2);
             }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
             TekananDarah tekananDarahObj = new TekananDarah(tekananSistolik, tekananDiastolik, tangan, catatan);
             tekananDarahList.add(tekananDarahObj);
 

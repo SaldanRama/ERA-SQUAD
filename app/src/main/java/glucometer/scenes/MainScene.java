@@ -52,6 +52,11 @@ public class MainScene {
         VBox tombol1 = new VBox(imgView1, title1);
         tombol1.setPadding(new Insets(10));
         tombol1.setOnMouseClicked(v -> {
+<<<<<<< HEAD
+=======
+            // SceneGulaDarah scGulaDarah = new SceneGulaDarah(stage, SceneGulaDarah.getGulaDarahList());
+            // stage.setScene(scGulaDarah);
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
             TableGulaDarah tbGulaDarah = new TableGulaDarah(stage);
             stage.setScene(tbGulaDarah);
         });
@@ -66,7 +71,11 @@ public class MainScene {
         VBox tombol2 = new VBox(imgView2, title2);
         tombol2.setPadding(new Insets(10));
         tombol2.setOnMouseClicked(v -> {
+<<<<<<< HEAD
             TableTekananDarah tbTekananDarah = new TableTekananDarah(stage);
+=======
+            TableTekananDarah tbTekananDarah = new TableTekananDarah(stage, SceneTekananDarah.getTekananDarahList());
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
             stage.setScene(tbTekananDarah);
         });
 

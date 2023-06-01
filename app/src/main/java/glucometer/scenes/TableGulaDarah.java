@@ -37,13 +37,21 @@ public class TableGulaDarah extends Scene {
         super(new VBox(), 480, 480);
         // this.stage = stage;
         DbGulaDarah daoGulaDarah = new DbGulaDarah();
+<<<<<<< HEAD
         
+=======
+        //
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
         try {
             gulaDarahList.addAll(daoGulaDarah.getAll());
             System.out.println(gulaDarahList.size());
         } catch (SQLException e) {
             e.printStackTrace();
         }
+<<<<<<< HEAD
+=======
+        // this.gulaDarahList = gulaDarahList;
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
         // Membuat tampilan scene
         VBox root = new VBox();
@@ -61,6 +69,10 @@ public class TableGulaDarah extends Scene {
 
         // Membuat Tabel View
         TableView<GulaDarah> tableGulaDarah = new TableView<>();
+<<<<<<< HEAD
+=======
+
+>>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
         // MembuAT Table Coloumn
         TableColumn<GulaDarah, Integer> coloumn1 = new TableColumn<>("Konsentrasi Gula Darah");
         TableColumn<GulaDarah, String> coloumn2 = new TableColumn<>("Waktu");
