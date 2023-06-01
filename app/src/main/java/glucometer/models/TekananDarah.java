@@ -5,12 +5,14 @@ public class TekananDarah {
     private int tekananDiastolik;
     private String tangan;
     private String catatan;
+    private String tanggal;
     
-    public TekananDarah(int tekananSistolik, int tekananDiastolik, String tangan, String catatan) {
+    public TekananDarah(int tekananSistolik, int tekananDiastolik, String tangan, String catatan, String tanggal) {
         this.tekananSistolik = tekananSistolik;
         this.tekananDiastolik = tekananDiastolik;
         this.tangan = tangan;
         this.catatan = catatan;
+        this.tanggal = tanggal;
     }
     
     public int getTekananSistolik() {
@@ -37,6 +39,12 @@ public class TekananDarah {
     public void setCatatan(String catatan) {
         this.catatan = catatan;
     }
+    public String getTanggal() {
+        return tanggal;
+    }
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
+    }
     
-  
+   
 }
