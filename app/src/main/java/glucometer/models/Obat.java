@@ -5,12 +5,14 @@ public class Obat {
     private int dosis;
     private String bentuk;
     private String catatan;
+    private String tanggal;
     
-    public Obat(String namaObat, int dosis, String bentuk, String catatan) {
+    public Obat(String namaObat, int dosis, String bentuk, String catatan, String tanggal) {
         this.namaObat = namaObat;
         this.dosis = dosis;
         this.bentuk = bentuk;
         this.catatan = catatan;
+        this.tanggal = tanggal;
     }
     
     public String getNamaObat() {
@@ -37,5 +39,12 @@ public class Obat {
     public void setCatatan(String catatan) {
         this.catatan = catatan;
     }
+    public String getTanggal() {
+        return tanggal;
+    }
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
+    }
     
+   
 }
