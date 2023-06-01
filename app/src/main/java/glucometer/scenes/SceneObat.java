@@ -1,11 +1,7 @@
 package glucometer.scenes;
 
-import glucometer.dataBase.DbGulaDarah;
 import glucometer.dataBase.DbObat;
-import glucometer.dataBase.DbTekananDarah;
-import glucometer.models.GulaDarah;
 import glucometer.models.Obat;
-import glucometer.models.TekananDarah;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -17,29 +13,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneObat extends Scene {
-    private Stage stage;
-    private static ObservableList<Obat> obatList;
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public static ObservableList<Obat> getObatList() {
-        return obatList;
-    }
-
-    public static void setObatList(ObservableList<Obat> obatList) {
-        SceneObat.obatList = obatList;
-    }
+    // private static ObservableList<Obat> obatList;
 
     public SceneObat(Stage stage, ObservableList<Obat> obatList) {
         super(new VBox(), 480, 480);
-        this.stage = stage;
-        this.obatList = obatList;
+     
 
         // Membuat tampilan scene
         VBox root = new VBox();
@@ -61,12 +39,15 @@ public class SceneObat extends Scene {
         
         TextField catatanTextField = new TextField();
         catatanTextField.setPromptText("Tambah Catatan Disini");
+        TextField tanggalTextField = new TextField();
+        tanggalTextField.setPromptText("Tanggal");
 
         Button tambahButton = new Button("Tambah");
         tambahButton.setOnAction(event -> {
             String namaObat = obatTextField.getText();
             int dosis = Integer.parseInt(obatTextField2.getText());
             String catatan = catatanTextField.getText();
+            String tanggal = tanggalTextField.getText();
             String bentuk = "";
 
             if (mgCheckBox.isSelected()) {
@@ -86,7 +67,7 @@ public class SceneObat extends Scene {
             }
 
 
-            Obat obatObj = new Obat(namaObat, dosis, bentuk, catatan);
+            Obat obatObj = new Obat(namaObat, dosis, bentuk, catatan, tanggal);
             obatList.add(obatObj);
 
             // Simpan ke database (TO DO LIST 1)
@@ -101,6 +82,7 @@ public class SceneObat extends Scene {
             mLCheckBox.setSelected(false);
             tabletCheckBox.setSelected(false);
             catatanTextField.clear();
+            tanggalTextField.clear();
         });
 
         Button kembaliButton = new Button("Kembali");
@@ -110,7 +92,7 @@ public class SceneObat extends Scene {
         });
 
         root.getChildren().addAll(titleLabel, obatTextField, obatTextField2, mgCheckBox, unitCheckBox, mLCheckBox,
-            tabletCheckBox, catatanTextField, tambahButton, kembaliButton);
+            tabletCheckBox, catatanTextField, tanggalTextField, tambahButton, kembaliButton);
 
         setRoot(root);
     }
