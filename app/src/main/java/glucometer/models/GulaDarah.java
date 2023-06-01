@@ -4,11 +4,13 @@ public class GulaDarah {
     private int gulaDarah;
     private String waktu;
     private String catatan;
+    private String tanggal;
     
-    public GulaDarah(int gulaDarah, String waktu, String catatan) {
+    public GulaDarah(int gulaDarah, String waktu, String catatan, String tanggal) {
         this.gulaDarah = gulaDarah;
         this.waktu = waktu;
         this.catatan = catatan;
+        this.tanggal = tanggal;
     }
     
     public int getGulaDarah() {
@@ -29,8 +31,13 @@ public class GulaDarah {
     public void setCatatan(String catatan) {
         this.catatan = catatan;
     }
-
+    public String getTanggal() {
+        return tanggal;
+    }
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
+    }
+    
    
-
 }
 
