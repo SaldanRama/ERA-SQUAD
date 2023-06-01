@@ -1,9 +1,5 @@
 package glucometer.scenes;
 
-import java.sql.SQLException;
-
-import org.sqlite.core.DB;
-
 import glucometer.dataBase.DbGulaDarah;
 import glucometer.models.GulaDarah;
 import javafx.collections.ObservableList;
@@ -17,26 +13,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneGulaDarah extends Scene {
-    private static ObservableList<GulaDarah> gulaDarahList;
-
-<<<<<<< HEAD
-    public SceneGulaDarah(Stage stage, ObservableList<GulaDarah> gulaDarahList) {
-        super(new VBox(), 480, 480);
-       
-=======
-    // public static ObservableList<GulaDarah> getGulaDarahList() {
-    //     return gulaDarahList;
-    // }
-
-    // public static void setGulaDarahList(ObservableList<GulaDarah> gulaDarahList) {
-    //     SceneGulaDarah.gulaDarahList = gulaDarahList;
-    // }
+    // private static ObservableList<GulaDarah> gulaDarahList;
 
     public SceneGulaDarah(Stage stage, ObservableList<GulaDarah> gulaDarahList) {
         super(new VBox(), 480, 480);
        
-        // this.gulaDarahList = gulaDarahList;
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
         // Membuat tampilan scene
         VBox root = new VBox();
@@ -62,21 +43,24 @@ public class SceneGulaDarah extends Scene {
 
         TextField catatanTextField = new TextField();
         catatanTextField.setPromptText("Tambah Catatan Disini");
+        TextField tanggalTextField = new TextField();
+        tanggalTextField.setPromptText("Tanggal");
 
         Button tambahButton = new Button("Tambah");
         tambahButton.setOnAction(event -> {
             int gulaDarah = Integer.parseInt(gulaDarahTextField.getText());
             String catatan = catatanTextField.getText();
+            String tanggal = tanggalTextField.getText();
             String waktu = "";
 
             if (beforeBreakfastCheckBox.isSelected()) {
-                waktu += "Before Breakfast, ";
+                waktu += "Before Breakfast";
             }
             if (afterBreakfastCheckBox.isSelected()) {
                 waktu += "After Breakfast";
             }
             if (beforeLunchCheckBox.isSelected()) {
-                waktu += "Before Lunch, ";
+                waktu += "Before Lunch";
             }
             if (afterLunchCheckBox.isSelected()) {
                 waktu += "After Lunch";
@@ -104,11 +88,8 @@ public class SceneGulaDarah extends Scene {
                     waktu = waktu.substring(0, waktu.length() - 2);
                 }
             }
-<<<<<<< HEAD
             
-=======
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
-            GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan);
+            GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan, tanggal);
             gulaDarahList.add(gulaDarahObj);
 
             // Simpan ke database (TO DO LIST 1)
@@ -128,6 +109,7 @@ public class SceneGulaDarah extends Scene {
             fastingCheckBox.setSelected(false);
             otherCheckBox.setSelected(false);
             catatanTextField.clear();
+            tanggalTextField.clear();
         });
 
         Button kembaliButton = new Button("Kembali");
@@ -140,7 +122,7 @@ public class SceneGulaDarah extends Scene {
                 beforeLunchCheckBox,
                 afterLunchCheckBox, beforeDinnerCheckBox, afterDinnerCheckBox, beforeSleepCheckBox, afterSleepCheckBox,
                 fastingCheckBox,
-                otherCheckBox, catatanTextField, tambahButton, kembaliButton);
+                otherCheckBox, catatanTextField, tanggalTextField, tambahButton, kembaliButton);
 
         setRoot(root);
     }
