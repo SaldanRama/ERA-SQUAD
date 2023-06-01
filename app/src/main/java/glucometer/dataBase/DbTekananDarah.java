@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import glucometer.models.GulaDarah;
+import glucometer.models.TekananDarah;
 import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 
 // public class DbGulaDarah {
 //     private Connection conn;
@@ -42,14 +42,13 @@ import javafx.collections.ObservableList;
 //     }
 
 
-
-public class DbGulaDarah {
-    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS gulaDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, gulaDarah INTEGER, waktu TEXT, catatan TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO gulaDarah (gulaDarah, waktu, catatan) VALUES (?, ?, ?)";
+public class DbTekananDarah {
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS tekananDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, tekananSistolik INTEGER, tekananDiastolik INTEGER, tangan TEXT, catatan TEXT)";
+    private static final String INSERT_QUERY = "INSERT INTO tekananDarah (tekananSistolik, tekananDiastolik, tangan, catatan) VALUES (?, ?, ?)";
     private Statement stmt;
     private Connection conn;
 
-    public DbGulaDarah() {
+    public DbTekananDarah() {
         createTableIfNotExists();
     }
 
@@ -61,50 +60,54 @@ public class DbGulaDarah {
         }
     }
 
-    public void addData(GulaDarah gulaDarah) {
+    public void addData(TekananDarah tekananDarah) {
         try (Connection conn = DataBaseConfig.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(INSERT_QUERY)) {
-            stmt.setInt(1, gulaDarah.getGulaDarah());
-            stmt.setString(2, gulaDarah.getWaktu());
-            stmt.setString(3, gulaDarah.getCatatan());
+            stmt.setInt(1, tekananDarah.getTekananSistolik());
+            stmt.setInt(2, tekananDarah.getTekananDiastolik());
+            stmt.setString(3, tekananDarah.getTangan());
+            stmt.setString(4, tekananDarah.getCatatan());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public ObservableList<GulaDarah> getAll() throws SQLException {
-        ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();
+    public ObservableList<TekananDarah> getAll() throws SQLException {
+        ObservableList<TekananDarah> tekananDarahList = FXCollections.observableArrayList();
 
         try (Connection conn = DataBaseConfig.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM gulaDarah")) {
+                ResultSet rs = stmt.executeQuery("SELECT * FROM tekananDarah")) {
             while (rs.next()) {
-                int gulaDarah = rs.getInt("gulaDarah");
-                String waktu = rs.getString("waktu");
+                int tekananSistolik = rs.getInt("tekananSistolik");
+                int tekananDiastolik = rs.getInt("tekananDiastolik");
+                String tangan = rs.getString("tangan");
                 String catatan = rs.getString("catatan");
 
-                GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan);
-                gulaDarahList.add(gulaDarahObj);
+                TekananDarah tekananDarahObj = new TekananDarah(tekananSistolik, tekananDiastolik, tangan, catatan);
+                tekananDarahList.add(tekananDarahObj);
             }
         } catch (SQLException e) {
             throw new SQLException();
         }
 
-        return gulaDarahList;
+        return tekananDarahList;
     }
 
-    public void syncData(List<GulaDarah> listGulaDarah) {
+    public void syncData(List<TekananDarah> listTekananDarah) {
         try {
-            stmt.executeUpdate("DELETE from gulaDarah");
+            stmt.executeUpdate("DELETE from tekananDarah");
             stmt = conn.createStatement();
-            for (GulaDarah gula : listGulaDarah) {
+            for (TekananDarah tekanan : listTekananDarah) {
                 String sql = String.format("""
-                        INSERT INTO gulaDarah(gulaDarah, catatan)
+                        INSERT INTO tekananDarah(tekananSistolik, tekananDistolik, tangan, catatan)
                         VALUES('%d', '%s');
                         """,
-                        gula.getGulaDarah(),
-                        gula.getCatatan());
+                        tekanan.getTekananSistolik(),
+                        tekanan.getTekananDiastolik(),
+                        tekanan.getTangan(),
+                        tekanan.getCatatan());
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {

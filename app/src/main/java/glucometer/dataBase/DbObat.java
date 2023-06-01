@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import glucometer.models.GulaDarah;
+import glucometer.models.Obat;
+import glucometer.models.TekananDarah;
 import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,14 +44,13 @@ import javafx.collections.ObservableList;
 //     }
 
 
-
-public class DbGulaDarah {
-    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS gulaDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, gulaDarah INTEGER, waktu TEXT, catatan TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO gulaDarah (gulaDarah, waktu, catatan) VALUES (?, ?, ?)";
+public class DbObat {
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS obat (id INTEGER PRIMARY KEY AUTOINCREMENT, namaObat TEXT, dosis TEXT, bentuk TEXT, catatan TEXT)";
+    private static final String INSERT_QUERY = "INSERT INTO obat (namaObat, dosis, bentuk, catatan) VALUES (?, ?, ?)";
     private Statement stmt;
     private Connection conn;
 
-    public DbGulaDarah() {
+    public DbObat() {
         createTableIfNotExists();
     }
 
@@ -61,50 +62,54 @@ public class DbGulaDarah {
         }
     }
 
-    public void addData(GulaDarah gulaDarah) {
+    public void addData(Obat obat) {
         try (Connection conn = DataBaseConfig.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(INSERT_QUERY)) {
-            stmt.setInt(1, gulaDarah.getGulaDarah());
-            stmt.setString(2, gulaDarah.getWaktu());
-            stmt.setString(3, gulaDarah.getCatatan());
+            stmt.setString(1, obat.getNamaObat());
+            stmt.setInt(2, obat.getDosis());
+            stmt.setString(3, obat.getBentuk());
+            stmt.setString(4, obat.getCatatan());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public ObservableList<GulaDarah> getAll() throws SQLException {
-        ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();
+    public ObservableList<Obat> getAll() throws SQLException {
+        ObservableList<Obat> obatList = FXCollections.observableArrayList();
 
         try (Connection conn = DataBaseConfig.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM gulaDarah")) {
+                ResultSet rs = stmt.executeQuery("SELECT * FROM obat")) {
             while (rs.next()) {
-                int gulaDarah = rs.getInt("gulaDarah");
-                String waktu = rs.getString("waktu");
+                String namaObat = rs.getString("namaObat");
+                int dosis = rs.getInt("dosis");
+                String bentuk = rs.getString("bentuk");
                 String catatan = rs.getString("catatan");
 
-                GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan);
-                gulaDarahList.add(gulaDarahObj);
+                Obat obatObj = new Obat(namaObat, dosis, bentuk, catatan);
+                obatList.add(obatObj);
             }
         } catch (SQLException e) {
             throw new SQLException();
         }
 
-        return gulaDarahList;
+        return obatList;
     }
 
-    public void syncData(List<GulaDarah> listGulaDarah) {
+    public void syncData(List<Obat> listObat) {
         try {
-            stmt.executeUpdate("DELETE from gulaDarah");
+            stmt.executeUpdate("DELETE from obat");
             stmt = conn.createStatement();
-            for (GulaDarah gula : listGulaDarah) {
+            for (Obat obat : listObat) {
                 String sql = String.format("""
-                        INSERT INTO gulaDarah(gulaDarah, catatan)
+                        INSERT INTO tekananDarah(namaObat, dosis, bentuk, catatan)
                         VALUES('%d', '%s');
                         """,
-                        gula.getGulaDarah(),
-                        gula.getCatatan());
+                        obat.getNamaObat(),
+                        obat.getDosis(),
+                        obat.getBentuk(),
+                        obat.getCatatan());
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {

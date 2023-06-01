@@ -1,5 +1,9 @@
 package glucometer.scenes;
 
+import java.sql.SQLException;
+
+import org.sqlite.core.DB;
+
 import glucometer.dataBase.DbGulaDarah;
 import glucometer.models.GulaDarah;
 import javafx.collections.ObservableList;
@@ -9,31 +13,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneGulaDarah extends Scene {
-    private Stage stage;
     private static ObservableList<GulaDarah> gulaDarahList;
 
-  
+    // public static ObservableList<GulaDarah> getGulaDarahList() {
+    //     return gulaDarahList;
+    // }
 
-    public static ObservableList<GulaDarah> getGulaDarahList() {
-        return gulaDarahList;
-    }
-
-    public static void setGulaDarahList(ObservableList<GulaDarah> gulaDarahList) {
-        SceneGulaDarah.gulaDarahList = gulaDarahList;
-    }
-
-
+    // public static void setGulaDarahList(ObservableList<GulaDarah> gulaDarahList) {
+    //     SceneGulaDarah.gulaDarahList = gulaDarahList;
+    // }
 
     public SceneGulaDarah(Stage stage, ObservableList<GulaDarah> gulaDarahList) {
-        super(new VBox(), 720, 480);
-        this.stage = stage;
-        this.gulaDarahList = gulaDarahList;
-
+        super(new VBox(), 480, 480);
+       
+        // this.gulaDarahList = gulaDarahList;
 
         // Membuat tampilan scene
         VBox root = new VBox();
@@ -58,7 +55,7 @@ public class SceneGulaDarah extends Scene {
         CheckBox otherCheckBox = new CheckBox("Other");
 
         TextField catatanTextField = new TextField();
-        catatanTextField.setPromptText("Catatan");
+        catatanTextField.setPromptText("Tambah Catatan Disini");
 
         Button tambahButton = new Button("Tambah");
         tambahButton.setOnAction(event -> {
@@ -83,23 +80,24 @@ public class SceneGulaDarah extends Scene {
             }
             if (afterDinnerCheckBox.isSelected()) {
                 waktu += "After Dinner";
-            if (beforeSleepCheckBox.isSelected()) {
-                waktu += "Before Sleep";
-            }
-            if (afterSleepCheckBox.isSelected()) {
-                waktu += "After Sleep";
-            }
-            if (fastingCheckBox.isSelected()) {
-                waktu += "Fasting";
-            }
-            if (otherCheckBox.isSelected()) {
-                waktu += "Other";
-            }
+                if (beforeSleepCheckBox.isSelected()) {
+                    waktu += "Before Sleep";
+                }
+                if (afterSleepCheckBox.isSelected()) {
+                    waktu += "After Sleep";
+                }
+                if (fastingCheckBox.isSelected()) {
+                    waktu += "Fasting";
+                }
+                if (otherCheckBox.isSelected()) {
+                    waktu += "Other";
+                }
+                
 
-            if (!waktu.isEmpty()) {
-                waktu = waktu.substring(0, waktu.length() - 2);
+                if (!waktu.isEmpty()) {
+                    waktu = waktu.substring(0, waktu.length() - 2);
+                }
             }
-        }
             GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan);
             gulaDarahList.add(gulaDarahObj);
 
@@ -123,18 +121,17 @@ public class SceneGulaDarah extends Scene {
         });
 
         Button kembaliButton = new Button("Kembali");
-        kembaliButton.setOnAction(event -> {
+        kembaliButton.setOnAction(v -> {
             MainScene mainScene = new MainScene(stage);
             mainScene.show();
         });
 
-        HBox buttonBox = new HBox(10);
-        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
+        root.getChildren().addAll(titleLabel, gulaDarahTextField, beforeBreakfastCheckBox, afterBreakfastCheckBox,
+                beforeLunchCheckBox,
+                afterLunchCheckBox, beforeDinnerCheckBox, afterDinnerCheckBox, beforeSleepCheckBox, afterSleepCheckBox,
+                fastingCheckBox,
+                otherCheckBox, catatanTextField, tambahButton, kembaliButton);
 
-        root.getChildren().addAll(titleLabel, gulaDarahTextField, beforeBreakfastCheckBox, afterBreakfastCheckBox, beforeLunchCheckBox,
-        afterLunchCheckBox, beforeDinnerCheckBox, afterDinnerCheckBox, beforeSleepCheckBox, afterSleepCheckBox, fastingCheckBox, 
-        otherCheckBox, catatanTextField, buttonBox);
-
-setRoot(root);
-}
+        setRoot(root);
+    }
 }

@@ -9,11 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import glucometer.models.BeratBadan;
 import glucometer.models.GulaDarah;
 import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 
 // public class DbGulaDarah {
 //     private Connection conn;
@@ -42,14 +42,13 @@ import javafx.collections.ObservableList;
 //     }
 
 
-
-public class DbGulaDarah {
-    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS gulaDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, gulaDarah INTEGER, waktu TEXT, catatan TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO gulaDarah (gulaDarah, waktu, catatan) VALUES (?, ?, ?)";
+public class DbBeratBadan {
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS beratBadan (id INTEGER PRIMARY KEY AUTOINCREMENT, beratBadan INTEGER, catatan TEXT)";
+    private static final String INSERT_QUERY = "INSERT INTO beratBadan (beratBadan, catatan) VALUES (?, ?, ?)";
     private Statement stmt;
     private Connection conn;
 
-    public DbGulaDarah() {
+    public DbBeratBadan() {
         createTableIfNotExists();
     }
 
@@ -61,50 +60,48 @@ public class DbGulaDarah {
         }
     }
 
-    public void addData(GulaDarah gulaDarah) {
+    public void addData(BeratBadan beratBadan) {
         try (Connection conn = DataBaseConfig.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(INSERT_QUERY)) {
-            stmt.setInt(1, gulaDarah.getGulaDarah());
-            stmt.setString(2, gulaDarah.getWaktu());
-            stmt.setString(3, gulaDarah.getCatatan());
+            stmt.setInt(1, beratBadan.getBeratBadan());
+            stmt.setString(2, beratBadan.getCatatan());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public ObservableList<GulaDarah> getAll() throws SQLException {
-        ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();
+    public ObservableList<BeratBadan> getAll() throws SQLException {
+        ObservableList<BeratBadan> beratBadanList = FXCollections.observableArrayList();
 
         try (Connection conn = DataBaseConfig.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM gulaDarah")) {
+                ResultSet rs = stmt.executeQuery("SELECT * FROM beratBadan")) {
             while (rs.next()) {
-                int gulaDarah = rs.getInt("gulaDarah");
-                String waktu = rs.getString("waktu");
+                int beratBadan = rs.getInt("beratBadan");
                 String catatan = rs.getString("catatan");
 
-                GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan);
-                gulaDarahList.add(gulaDarahObj);
+                BeratBadan beratBadanObj = new BeratBadan(beratBadan, catatan);
+                beratBadanList.add(beratBadanObj);
             }
         } catch (SQLException e) {
             throw new SQLException();
         }
 
-        return gulaDarahList;
+        return beratBadanList;
     }
 
-    public void syncData(List<GulaDarah> listGulaDarah) {
+    public void syncData(List<BeratBadan> listBeratBadan) {
         try {
-            stmt.executeUpdate("DELETE from gulaDarah");
+            stmt.executeUpdate("DELETE from beratBadan");
             stmt = conn.createStatement();
-            for (GulaDarah gula : listGulaDarah) {
+            for (BeratBadan beratBadan : listBeratBadan) {
                 String sql = String.format("""
-                        INSERT INTO gulaDarah(gulaDarah, catatan)
+                        INSERT INTO beratBadan(beratBadan, catatan)
                         VALUES('%d', '%s');
                         """,
-                        gula.getGulaDarah(),
-                        gula.getCatatan());
+                        beratBadan.getBeratBadan(),
+                        beratBadan.getCatatan());
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {
