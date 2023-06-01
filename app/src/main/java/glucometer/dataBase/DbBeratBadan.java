@@ -2,49 +2,20 @@ package glucometer.dataBase;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
 import glucometer.models.BeratBadan;
-import glucometer.models.GulaDarah;
 import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-// public class DbGulaDarah {
-//     private Connection conn;
-//     private Statement stmt;
-
-//     public DbGulaDarah() {
-//         conn = DataBaseConfig.getConnection();
-//         setupTable();
-//     }
-
-//     private void setupTable() {
-//         try {
-//             DatabaseMetaData meta = conn.getMetaData();
-//             ResultSet rs = meta.getTables(null, null, "gulaDarah", null);
-//             if (!rs.next()) {
-//                 stmt = conn.createStatement();
-//                 String sql = "CREATE TABLE gulaDarah " +
-//                         "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-//                         " konsentrasiGula INTEGER NOT NULL, " +
-//                         " catatan TEXT NOT NULL)";
-//                 stmt.executeUpdate(sql);
-//             }
-//         } catch (SQLException e) {
-//             e.printStackTrace();
-//         }
-//     }
 
 
 public class DbBeratBadan {
-    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS beratBadan (id INTEGER PRIMARY KEY AUTOINCREMENT, beratBadan INTEGER, catatan TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO beratBadan (beratBadan, catatan) VALUES (?, ?, ?)";
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS beratBadan (id INTEGER PRIMARY KEY AUTOINCREMENT, beratBadan INTEGER, catatan TEXT, tanggal TEXT)";
+    private static final String INSERT_QUERY = "INSERT INTO beratBadan (beratBadan, catatan, tanggal) VALUES (?, ?, ?)";
     private Statement stmt;
     private Connection conn;
 
@@ -65,6 +36,7 @@ public class DbBeratBadan {
                 PreparedStatement stmt = conn.prepareStatement(INSERT_QUERY)) {
             stmt.setInt(1, beratBadan.getBeratBadan());
             stmt.setString(2, beratBadan.getCatatan());
+            stmt.setString(3, beratBadan.getTanggal());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,14 +52,14 @@ public class DbBeratBadan {
             while (rs.next()) {
                 int beratBadan = rs.getInt("beratBadan");
                 String catatan = rs.getString("catatan");
+                String tanggal = rs.getString("tanggal");
 
-                BeratBadan beratBadanObj = new BeratBadan(beratBadan, catatan);
+                BeratBadan beratBadanObj = new BeratBadan(beratBadan, catatan, tanggal);
                 beratBadanList.add(beratBadanObj);
             }
         } catch (SQLException e) {
             throw new SQLException();
         }
-
         return beratBadanList;
     }
 
@@ -97,11 +69,12 @@ public class DbBeratBadan {
             stmt = conn.createStatement();
             for (BeratBadan beratBadan : listBeratBadan) {
                 String sql = String.format("""
-                        INSERT INTO beratBadan(beratBadan, catatan)
+                        INSERT INTO beratBadan(beratBadan, catatan, tanggal)
                         VALUES('%d', '%s');
                         """,
                         beratBadan.getBeratBadan(),
                         beratBadan.getCatatan());
+                        beratBadan.getTanggal();
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {
