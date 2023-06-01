@@ -1,36 +1,17 @@
 package glucometer.scenes;
 
-import javafx.scene.text.Font;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import glucometer.models.BeratBadan;
-import glucometer.models.GulaDarah;
-import glucometer.models.Obat;
-import glucometer.models.TekananDarah;
-import java.sql.SQLException;
-import glucometer.dataBase.DbGulaDarah;
+
 
 public class MainScene {
     private Stage stage;
@@ -52,11 +33,6 @@ public class MainScene {
         VBox tombol1 = new VBox(imgView1, title1);
         tombol1.setPadding(new Insets(10));
         tombol1.setOnMouseClicked(v -> {
-<<<<<<< HEAD
-=======
-            // SceneGulaDarah scGulaDarah = new SceneGulaDarah(stage, SceneGulaDarah.getGulaDarahList());
-            // stage.setScene(scGulaDarah);
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
             TableGulaDarah tbGulaDarah = new TableGulaDarah(stage);
             stage.setScene(tbGulaDarah);
         });
@@ -71,11 +47,7 @@ public class MainScene {
         VBox tombol2 = new VBox(imgView2, title2);
         tombol2.setPadding(new Insets(10));
         tombol2.setOnMouseClicked(v -> {
-<<<<<<< HEAD
             TableTekananDarah tbTekananDarah = new TableTekananDarah(stage);
-=======
-            TableTekananDarah tbTekananDarah = new TableTekananDarah(stage, SceneTekananDarah.getTekananDarahList());
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
             stage.setScene(tbTekananDarah);
         });
 
@@ -89,8 +61,8 @@ public class MainScene {
         VBox tombol3 = new VBox(imgView3, title3);
         tombol3.setPadding(new Insets(10));
         tombol3.setOnMouseClicked(v -> {
-            TableObat scObat = new TableObat(stage, SceneObat.getObatList());
-            stage.setScene(scObat);
+            TableObat tbObat = new TableObat(stage);
+            stage.setScene(tbObat);
         });
 
 
@@ -103,7 +75,7 @@ public class MainScene {
         VBox tombol4 = new VBox(imgView4, title4);
         tombol4.setPadding(new Insets(10));
         tombol4.setOnMouseClicked(v -> {
-            TableBeratBadan tbBeratBadan = new TableBeratBadan(stage, TableBeratBadan.getBeratBadanList());
+            TableBeratBadan tbBeratBadan = new TableBeratBadan(stage);
             stage.setScene(tbBeratBadan);
         });
 
