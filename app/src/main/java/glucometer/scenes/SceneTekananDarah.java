@@ -1,8 +1,6 @@
 package glucometer.scenes;
 
-import glucometer.dataBase.DbGulaDarah;
 import glucometer.dataBase.DbTekananDarah;
-import glucometer.models.GulaDarah;
 import glucometer.models.TekananDarah;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,39 +13,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneTekananDarah extends Scene {
-<<<<<<< HEAD
-    private static ObservableList<TekananDarah> tekananDarahList;
+    // private static ObservableList<TekananDarah> tekananDarahList;
 
     public SceneTekananDarah(Stage stage, ObservableList<TekananDarah> tekananDarahList) {
         super(new VBox(), 480, 480);
 
-=======
-    private Stage stage;
-    private static ObservableList<TekananDarah> tekananDarahList;
-
-    public Stage getStage() {
-        return stage;
-    }
-    
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public static ObservableList<TekananDarah> getTekananDarahList() {
-        return tekananDarahList;
-    }
-
-    public static void setTekananDarahList(ObservableList<TekananDarah> tekananDarahList) {
-        SceneTekananDarah.tekananDarahList = tekananDarahList;
-    }
-
-
-
-    public SceneTekananDarah(Stage stage, ObservableList<TekananDarah> tekananDarahList) {
-        super(new VBox(), 480, 480);
-        this.stage = stage;
-        this.tekananDarahList = tekananDarahList;
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
         // Membuat tampilan scene
         VBox root = new VBox();
@@ -67,12 +37,15 @@ public class SceneTekananDarah extends Scene {
         
         TextField catatanTextField = new TextField();
         catatanTextField.setPromptText("Tambah Catatan Disini");
+        TextField tanggalTextField = new TextField();
+        tanggalTextField.setPromptText("Tanggal");
 
         Button tambahButton = new Button("Tambah");
         tambahButton.setOnAction(event -> {
             int tekananSistolik = Integer.parseInt(tekananDarahTextField.getText());
             int tekananDiastolik = Integer.parseInt(tekananDarahTextField2.getText());
             String catatan = catatanTextField.getText();
+            String tanggal = tanggalTextField.getText();
             String tangan = "";
 
             if (rightArmCheckBox.isSelected()) {
@@ -85,11 +58,7 @@ public class SceneTekananDarah extends Scene {
                 tangan = tangan.substring(0, tangan.length() - 2);
             }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
-            TekananDarah tekananDarahObj = new TekananDarah(tekananSistolik, tekananDiastolik, tangan, catatan);
+            TekananDarah tekananDarahObj = new TekananDarah(tekananSistolik, tekananDiastolik, tangan, catatan, tanggal);
             tekananDarahList.add(tekananDarahObj);
 
             // Simpan ke database (TO DO LIST 1)
@@ -102,6 +71,7 @@ public class SceneTekananDarah extends Scene {
             rightArmCheckBox.setSelected(false);
             leftArmCheckBox.setSelected(false);
             catatanTextField.clear();
+            tanggalTextField.clear();
         });
 
         Button kembaliButton = new Button("Kembali");
@@ -111,7 +81,7 @@ public class SceneTekananDarah extends Scene {
         });
 
         root.getChildren().addAll(titleLabel, tekananDarahTextField, tekananDarahTextField2, rightArmCheckBox, leftArmCheckBox,
-            catatanTextField, tambahButton, kembaliButton);
+            catatanTextField, tanggalTextField, tambahButton, kembaliButton);
 
         setRoot(root);
     }
