@@ -9,20 +9,17 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TableGulaDarah extends Scene {
-    // private Stage stage;
     private static ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();
-    private VBox rightSide = new VBox();
+    // private VBox rightSide = new VBox();
 
     // public static ObservableList<GulaDarah> getGulaDarahList() {
     // return gulaDarahList;
@@ -35,23 +32,14 @@ public class TableGulaDarah extends Scene {
 
     public TableGulaDarah(Stage stage) {
         super(new VBox(), 480, 480);
-        // this.stage = stage;
         DbGulaDarah daoGulaDarah = new DbGulaDarah();
-<<<<<<< HEAD
         
-=======
-        //
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
         try {
             gulaDarahList.addAll(daoGulaDarah.getAll());
             System.out.println(gulaDarahList.size());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-<<<<<<< HEAD
-=======
-        // this.gulaDarahList = gulaDarahList;
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
 
         // Membuat tampilan scene
         VBox root = new VBox();
@@ -69,23 +57,21 @@ public class TableGulaDarah extends Scene {
 
         // Membuat Tabel View
         TableView<GulaDarah> tableGulaDarah = new TableView<>();
-<<<<<<< HEAD
-=======
-
->>>>>>> c3644c56205a812715fa598d2b583cf597bd2a3d
         // MembuAT Table Coloumn
         TableColumn<GulaDarah, Integer> coloumn1 = new TableColumn<>("Konsentrasi Gula Darah");
         TableColumn<GulaDarah, String> coloumn2 = new TableColumn<>("Waktu");
         TableColumn<GulaDarah, String> coloumn3 = new TableColumn<>("Catatan");
+        TableColumn<GulaDarah, String> coloumn4 = new TableColumn<>("Tanggal");
 
         // Pasangkan
         coloumn1.setCellValueFactory(new PropertyValueFactory<>("gulaDarah"));
         coloumn2.setCellValueFactory(new PropertyValueFactory<>("waktu"));
         coloumn3.setCellValueFactory(new PropertyValueFactory<>("catatan"));
+        coloumn4.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
 
 
         // tambah colum ke table
-        tableGulaDarah.getColumns().addAll(coloumn1, coloumn2, coloumn3);
+        tableGulaDarah.getColumns().addAll(coloumn1, coloumn2, coloumn3, coloumn4);
 
         // Kasi nilai
         tableGulaDarah.setItems(gulaDarahList);
@@ -96,13 +82,15 @@ public class TableGulaDarah extends Scene {
         tfWaktu.setPromptText("Waktu");
         TextField tfCatatan = new TextField();
         tfCatatan.setPromptText("Catatan");
+        TextField tfTanggal = new TextField();
+        tfTanggal.setPromptText("Tanggal");
 
-        Button btnAdd = new Button("Tambah");
-        btnAdd.setOnAction(v -> {
-            gulaDarahList.add(
-                    new GulaDarah(Integer.parseInt(tfGulaDarah.getText()), tfWaktu.getText(), tfCatatan.getText()));
-            daoGulaDarah.syncData(gulaDarahList);
-        });
+        // Button btnAdd = new Button("Tambah");
+        // btnAdd.setOnAction(v -> {
+        //     gulaDarahList.add(
+        //             new GulaDarah(Integer.parseInt(tfGulaDarah.getText()), tfWaktu.getText(), tfCatatan.getText()));
+        //     daoGulaDarah.syncData(gulaDarahList);
+        // });
 
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(v -> {
