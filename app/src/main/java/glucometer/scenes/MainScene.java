@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -40,9 +41,9 @@ public class MainScene {
 
     // SCENE 1
     public void show() {
-
+        
         // BUTTON
-                      //Gula Darah
+        //Gula Darah
         Image img1 = new Image(getClass().getClassLoader().getResourceAsStream("images/Gula_Darah.png"));
         ImageView imgView1 = new ImageView(img1);
         imgView1.setFitWidth(100);
@@ -51,8 +52,8 @@ public class MainScene {
         VBox tombol1 = new VBox(imgView1, title1);
         tombol1.setPadding(new Insets(10));
         tombol1.setOnMouseClicked(v -> {
-            SceneGulaDarah scGulaDarah = new SceneGulaDarah(stage, SceneGulaDarah.getGulaDarahList());
-            stage.setScene(scGulaDarah);
+            TableGulaDarah tbGulaDarah = new TableGulaDarah(stage);
+            stage.setScene(tbGulaDarah);
         });
 
 
@@ -64,9 +65,9 @@ public class MainScene {
         Label title2 = new Label("");
         VBox tombol2 = new VBox(imgView2, title2);
         tombol2.setPadding(new Insets(10));
-        // tombol2.setStyle("-fx-background-color: red");
         tombol2.setOnMouseClicked(v -> {
-            // isi
+            TableTekananDarah tbTekananDarah = new TableTekananDarah(stage);
+            stage.setScene(tbTekananDarah);
         });
 
 
@@ -79,7 +80,8 @@ public class MainScene {
         VBox tombol3 = new VBox(imgView3, title3);
         tombol3.setPadding(new Insets(10));
         tombol3.setOnMouseClicked(v -> {
-            // isi
+            TableObat scObat = new TableObat(stage, SceneObat.getObatList());
+            stage.setScene(scObat);
         });
 
 
@@ -91,9 +93,16 @@ public class MainScene {
         Label title4 = new Label("");
         VBox tombol4 = new VBox(imgView4, title4);
         tombol4.setPadding(new Insets(10));
-        // tombol4.setStyle("-fx-background-color: red");
         tombol4.setOnMouseClicked(v -> {
-            // isi
+            TableBeratBadan tbBeratBadan = new TableBeratBadan(stage, TableBeratBadan.getBeratBadanList());
+            stage.setScene(tbBeratBadan);
+        });
+
+        Label titleKembali = new Label("Kembali");
+        VBox kembaliButton = new VBox(titleKembali);
+        kembaliButton.setOnMouseClicked(v -> {
+            HomeScene homeScene = new HomeScene(stage);
+            homeScene.show();
         });
 
         VBox sectionLeft = new VBox(tombol1, tombol2);
@@ -120,8 +129,8 @@ public class MainScene {
         spTitle.setStyle("-fx-background-color: #9ED0F3;");
 
 
-        VBox content = new VBox(spTitle, rootNode);
-        content.setSpacing(10);
+        VBox content = new VBox(spTitle, rootNode, kembaliButton);
+        content.setSpacing(0);
         content.setAlignment(Pos.TOP_CENTER);
 
         // SECTION RIGHT
@@ -140,7 +149,7 @@ public class MainScene {
         // rootNode1.setAlignment(Pos.CENTER);
         // rootNode1.getStyleClass().add("rootNode");
 
-        Scene scene = new Scene(content, 720, 480);
+        Scene scene = new Scene(content, 480, 480);
 
         // atur css
         scene.getStylesheets().add(getClass().getResource("/styles/main_style.css").toExternalForm());
