@@ -86,4 +86,7 @@ public class DbGulaDarah {
         }
     
 }
+
+    public void deleteData(GulaDarah selectedGulaDarah) {
+    }
 }

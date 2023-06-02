@@ -14,26 +14,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TableGulaDarah extends Scene {
     private static ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();
-    // private VBox rightSide = new VBox();
-
-    // public static ObservableList<GulaDarah> getGulaDarahList() {
-    // return gulaDarahList;
-    // }
-
-    // public static void setGulaDarahList(ObservableList<GulaDarah> gulaDarahList)
-    // {
-    // TableGulaDarah.gulaDarahList = gulaDarahList;
-    // }
 
     public TableGulaDarah(Stage stage) {
         super(new VBox(), 480, 480);
         DbGulaDarah daoGulaDarah = new DbGulaDarah();
-        
+
         try {
             gulaDarahList.addAll(daoGulaDarah.getAll());
             System.out.println(gulaDarahList.size());
@@ -41,7 +32,6 @@ public class TableGulaDarah extends Scene {
             e.printStackTrace();
         }
 
-        // Membuat tampilan scene
         VBox root = new VBox();
         root.setSpacing(10);
         root.setPadding(new Insets(10));
@@ -55,25 +45,18 @@ public class TableGulaDarah extends Scene {
             stage.setScene(scGulaDarah);
         });
 
-        // Membuat Tabel View
         TableView<GulaDarah> tableGulaDarah = new TableView<>();
-        // MembuAT Table Coloumn
         TableColumn<GulaDarah, Integer> coloumn1 = new TableColumn<>("Konsentrasi Gula Darah");
         TableColumn<GulaDarah, String> coloumn2 = new TableColumn<>("Waktu");
         TableColumn<GulaDarah, String> coloumn3 = new TableColumn<>("Catatan");
         TableColumn<GulaDarah, String> coloumn4 = new TableColumn<>("Tanggal");
 
-        // Pasangkan
         coloumn1.setCellValueFactory(new PropertyValueFactory<>("gulaDarah"));
         coloumn2.setCellValueFactory(new PropertyValueFactory<>("waktu"));
         coloumn3.setCellValueFactory(new PropertyValueFactory<>("catatan"));
         coloumn4.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
 
-
-        // tambah colum ke table
         tableGulaDarah.getColumns().addAll(coloumn1, coloumn2, coloumn3, coloumn4);
-
-        // Kasi nilai
         tableGulaDarah.setItems(gulaDarahList);
 
         TextField tfGulaDarah = new TextField();
@@ -85,12 +68,14 @@ public class TableGulaDarah extends Scene {
         TextField tfTanggal = new TextField();
         tfTanggal.setPromptText("Tanggal");
 
-        // Button btnAdd = new Button("Tambah");
-        // btnAdd.setOnAction(v -> {
-        //     gulaDarahList.add(
-        //             new GulaDarah(Integer.parseInt(tfGulaDarah.getText()), tfWaktu.getText(), tfCatatan.getText()));
-        //     daoGulaDarah.syncData(gulaDarahList);
-        // });
+        Button hapusButton = new Button("Hapus");
+        hapusButton.setOnAction(event -> {
+            GulaDarah selectedGulaDarah = tableGulaDarah.getSelectionModel().getSelectedItem();
+            if (selectedGulaDarah != null) {
+                gulaDarahList.remove(selectedGulaDarah);
+                daoGulaDarah.deleteData(selectedGulaDarah);
+            }
+        });
 
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(v -> {
@@ -98,7 +83,10 @@ public class TableGulaDarah extends Scene {
             mainScene.show();
         });
 
-        root.getChildren().addAll(titleLabel, tambahButton, kembaliButton, tableGulaDarah);
+        HBox buttonBox = new HBox(10);
+        buttonBox.getChildren().addAll(tambahButton, hapusButton, kembaliButton);
+
+        root.getChildren().addAll(titleLabel, buttonBox, tableGulaDarah);
 
         setRoot(root);
     }

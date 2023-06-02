@@ -31,6 +31,7 @@ public class MainScene {
         imgView1.setFitHeight(100);
         Label title1 = new Label("");
         VBox tombol1 = new VBox(imgView1, title1);
+        tombol1.getStyleClass().add("tombol1");
         tombol1.setPadding(new Insets(10));
         tombol1.setOnMouseClicked(v -> {
             TableGulaDarah tbGulaDarah = new TableGulaDarah(stage);
@@ -45,6 +46,7 @@ public class MainScene {
         imgView2.setFitHeight(100);
         Label title2 = new Label("");
         VBox tombol2 = new VBox(imgView2, title2);
+        tombol2.getStyleClass().add("tombol2");
         tombol2.setPadding(new Insets(10));
         tombol2.setOnMouseClicked(v -> {
             TableTekananDarah tbTekananDarah = new TableTekananDarah(stage);
@@ -59,6 +61,7 @@ public class MainScene {
         imgView3.setFitHeight(100);
         Label title3 = new Label("");
         VBox tombol3 = new VBox(imgView3, title3);
+        tombol3.getStyleClass().add("tombol3");
         tombol3.setPadding(new Insets(10));
         tombol3.setOnMouseClicked(v -> {
             TableObat tbObat = new TableObat(stage);
@@ -73,18 +76,28 @@ public class MainScene {
         imgView4.setFitHeight(100);
         Label title4 = new Label("");
         VBox tombol4 = new VBox(imgView4, title4);
+        tombol4.getStyleClass().add("tombol4");
         tombol4.setPadding(new Insets(10));
         tombol4.setOnMouseClicked(v -> {
             TableBeratBadan tbBeratBadan = new TableBeratBadan(stage);
             stage.setScene(tbBeratBadan);
         });
 
-        Label titleKembali = new Label("Kembali");
+        //Button Kembali
+        Label titleKembali = new Label("Home");
         VBox kembaliButton = new VBox(titleKembali);
+        ImageView imageView = new ImageView("F:/New folder/ERA-SQUAD/app/src/main/resources/images/icon_home.png"); // Ganti dengan path file gambar yang sesuai
+        titleKembali.setGraphic(imageView);
+        kembaliButton.setAlignment(Pos.CENTER);
+        kembaliButton.setPadding(new Insets(0));
+        VBox.setMargin(kembaliButton, new Insets(0, 300, 0, 300));
+        kembaliButton.getStyleClass().add("custom-button");
+        
         kembaliButton.setOnMouseClicked(v -> {
             HomeScene homeScene = new HomeScene(stage);
             homeScene.show();
         });
+        
 
         VBox sectionLeft = new VBox(tombol1, tombol2);
         sectionLeft.setSpacing(20);
