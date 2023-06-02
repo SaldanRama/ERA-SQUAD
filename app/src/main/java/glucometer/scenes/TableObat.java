@@ -60,6 +60,12 @@ public class TableObat extends Scene {
         coloumn4.setCellValueFactory(new PropertyValueFactory<>("catatan"));
         coloumn5.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
 
+        coloumn1.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+        coloumn2.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+        coloumn3.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+        coloumn4.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+        coloumn5.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+
         tableObat.getColumns().addAll(coloumn1, coloumn2, coloumn3, coloumn4, coloumn5);
         tableObat.setItems(obatList);
 
