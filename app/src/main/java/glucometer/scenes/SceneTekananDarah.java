@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -73,15 +74,17 @@ public class SceneTekananDarah extends Scene {
             catatanTextField.clear();
             tanggalTextField.clear();
         });
-
         Button kembaliButton = new Button("Kembali");
-        kembaliButton.setOnAction(v -> {
-            MainScene mainScene = new MainScene(stage);
-            mainScene.show();
+        kembaliButton.setOnAction(event -> {
+            stage.setScene(new TableTekananDarah(stage));
         });
+        
+
+        HBox buttonBox = new HBox(10);
+        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
 
         root.getChildren().addAll(titleLabel, tekananDarahTextField, tekananDarahTextField2, rightArmCheckBox, leftArmCheckBox,
-            catatanTextField, tanggalTextField, tambahButton, kembaliButton);
+            catatanTextField, tanggalTextField, buttonBox);
 
         setRoot(root);
     }

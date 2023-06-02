@@ -17,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -81,20 +82,16 @@ public class TableBeratBadan extends Scene {
         TextField tfTanggal = new TextField();
         tfTanggal.setPromptText("Tanggal");
 
-        // Button btnAdd = new Button("Tambah");
-        // btnAdd.setOnAction(v -> {
-        //     beratBadanList.add(
-        //             new BeratBadan(Integer.parseInt(tfBeratBadan.getText()), tfCatatan.getText()));
-        //     daoBeratBadan.syncData(beratBadanList);
-        // });
-
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(v -> {
             MainScene mainScene = new MainScene(stage);
             mainScene.show();
         });
 
-        root.getChildren().addAll(titleLabel, tambahButton, kembaliButton, tableBeratBadan);
+        HBox buttonBox = new HBox(10);
+        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
+
+        root.getChildren().addAll(titleLabel, buttonBox, tableBeratBadan);
 
         setRoot(root);
     }

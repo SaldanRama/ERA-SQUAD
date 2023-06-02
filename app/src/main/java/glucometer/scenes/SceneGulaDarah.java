@@ -9,17 +9,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneGulaDarah extends Scene {
-    // private static ObservableList<GulaDarah> gulaDarahList;
+    private ObservableList<GulaDarah> gulaDarahList;
 
     public SceneGulaDarah(Stage stage, ObservableList<GulaDarah> gulaDarahList) {
         super(new VBox(), 480, 480);
-       
+        this.gulaDarahList = gulaDarahList;
 
-        // Membuat tampilan scene
         VBox root = new VBox();
         root.setSpacing(10);
         root.setPadding(new Insets(10));
@@ -45,6 +45,9 @@ public class SceneGulaDarah extends Scene {
         catatanTextField.setPromptText("Tambah Catatan Disini");
         TextField tanggalTextField = new TextField();
         tanggalTextField.setPromptText("Tanggal");
+
+        HBox buttonBox = new HBox();
+        buttonBox.setSpacing(10);
 
         Button tambahButton = new Button("Tambah");
         tambahButton.setOnAction(event -> {
@@ -82,13 +85,12 @@ public class SceneGulaDarah extends Scene {
                 if (otherCheckBox.isSelected()) {
                     waktu += "Other";
                 }
-                
 
                 if (!waktu.isEmpty()) {
                     waktu = waktu.substring(0, waktu.length() - 2);
                 }
             }
-            
+
             GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan, tanggal);
             gulaDarahList.add(gulaDarahObj);
 
@@ -114,15 +116,15 @@ public class SceneGulaDarah extends Scene {
 
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(v -> {
-            MainScene mainScene = new MainScene(stage);
-            mainScene.show();
+            TableGulaDarah tableGulaDarah = new TableGulaDarah(stage);
+            stage.setScene(tableGulaDarah);
         });
 
+        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
+
         root.getChildren().addAll(titleLabel, gulaDarahTextField, beforeBreakfastCheckBox, afterBreakfastCheckBox,
-                beforeLunchCheckBox,
-                afterLunchCheckBox, beforeDinnerCheckBox, afterDinnerCheckBox, beforeSleepCheckBox, afterSleepCheckBox,
-                fastingCheckBox,
-                otherCheckBox, catatanTextField, tanggalTextField, tambahButton, kembaliButton);
+                beforeLunchCheckBox, afterLunchCheckBox, beforeDinnerCheckBox, afterDinnerCheckBox, beforeSleepCheckBox,
+                afterSleepCheckBox, fastingCheckBox, otherCheckBox, catatanTextField, tanggalTextField, buttonBox);
 
         setRoot(root);
     }

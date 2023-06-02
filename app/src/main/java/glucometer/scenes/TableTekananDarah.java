@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -83,20 +84,16 @@ public class TableTekananDarah extends Scene {
         TextField tfTanggal = new TextField();
         tfTanggal.setPromptText("Tanggal");
 
-        // Button btnAdd = new Button("Tambah");
-        // btnAdd.setOnAction(v -> {
-        //     tekananDarahList.add(
-        //             new TekananDarah(Integer.parseInt(tfSistolik.getText()), Integer.parseInt(tfDiastolik.getText()), tfTangan.getText(), tfCatatan.getText()));
-        //     daoTekananDarah.syncData(tekananDarahList);
-        // });
-
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(v -> {
             MainScene mainScene = new MainScene(stage);
             mainScene.show();
         });
 
-        root.getChildren().addAll(titleLabel, tambahButton, kembaliButton, tableTekananDarah);
+        HBox buttonBox = new HBox(10);
+        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
+
+        root.getChildren().addAll(titleLabel, buttonBox, tableTekananDarah);
 
         setRoot(root);
     }

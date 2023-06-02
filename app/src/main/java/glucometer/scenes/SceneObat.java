@@ -9,17 +9,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneObat extends Scene {
-    // private static ObservableList<Obat> obatList;
-
     public SceneObat(Stage stage, ObservableList<Obat> obatList) {
         super(new VBox(), 480, 480);
-     
 
-        // Membuat tampilan scene
         VBox root = new VBox();
         root.setSpacing(10);
         root.setPadding(new Insets(10));
@@ -29,6 +26,7 @@ public class SceneObat extends Scene {
 
         TextField obatTextField = new TextField();
         obatTextField.setPromptText("Nama Obat");
+
         TextField obatTextField2 = new TextField();
         obatTextField2.setPromptText("Dosis");
 
@@ -36,9 +34,14 @@ public class SceneObat extends Scene {
         CheckBox unitCheckBox = new CheckBox("unit");
         CheckBox mLCheckBox = new CheckBox("mL");
         CheckBox tabletCheckBox = new CheckBox("tablet");
-        
+
+        HBox checkBoxBox = new HBox();
+        checkBoxBox.setSpacing(10);
+        checkBoxBox.getChildren().addAll(mgCheckBox, unitCheckBox, mLCheckBox, tabletCheckBox);
+
         TextField catatanTextField = new TextField();
         catatanTextField.setPromptText("Tambah Catatan Disini");
+
         TextField tanggalTextField = new TextField();
         tanggalTextField.setPromptText("Tanggal");
 
@@ -51,30 +54,27 @@ public class SceneObat extends Scene {
             String bentuk = "";
 
             if (mgCheckBox.isSelected()) {
-                bentuk += "mg";
+                bentuk += "mg, ";
             }
             if (unitCheckBox.isSelected()) {
-                bentuk += "unit";
+                bentuk += "unit, ";
             }
             if (mLCheckBox.isSelected()) {
-                bentuk += "mL";
+                bentuk += "mL, ";
             }
             if (tabletCheckBox.isSelected()) {
-                bentuk += "tablet";
+                bentuk += "tablet, ";
             }
             if (!bentuk.isEmpty()) {
                 bentuk = bentuk.substring(0, bentuk.length() - 2);
             }
 
-
             Obat obatObj = new Obat(namaObat, dosis, bentuk, catatan, tanggal);
             obatList.add(obatObj);
 
-            // Simpan ke database (TO DO LIST 1)
-            DbObat dboObat = new DbObat();
-            dboObat.addData(obatObj);
+            DbObat dbObat = new DbObat();
+            dbObat.addData(obatObj);
 
-            // Clear input fields
             obatTextField.clear();
             obatTextField2.clear();
             mgCheckBox.setSelected(false);
@@ -86,13 +86,16 @@ public class SceneObat extends Scene {
         });
 
         Button kembaliButton = new Button("Kembali");
-        kembaliButton.setOnAction(v -> {
-            MainScene mainScene = new MainScene(stage);
-            mainScene.show();
+        kembaliButton.setOnAction(event -> {
+            stage.setScene(new TableObat(stage));
         });
 
-        root.getChildren().addAll(titleLabel, obatTextField, obatTextField2, mgCheckBox, unitCheckBox, mLCheckBox,
-            tabletCheckBox, catatanTextField, tanggalTextField, tambahButton, kembaliButton);
+        HBox buttonBox = new HBox();
+        buttonBox.setSpacing(10);
+        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
+
+        root.getChildren().addAll(titleLabel, obatTextField, obatTextField2, checkBoxBox, catatanTextField,
+                tanggalTextField, buttonBox);
 
         setRoot(root);
     }

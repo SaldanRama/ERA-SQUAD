@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -52,13 +53,14 @@ public class SceneBeratBadan extends Scene {
         });
 
         Button kembaliButton = new Button("Kembali");
-        kembaliButton.setOnAction(v -> {
-            MainScene mainScene = new MainScene(stage);
-            mainScene.show();
+        kembaliButton.setOnAction(event -> {
+            stage.setScene(new TableBeratBadan(stage));
         });
 
-        root.getChildren().addAll(titleLabel, beratBadanTextField, catatanTextField, tanggalTextField, tambahButton,
-                kembaliButton);
+        HBox buttonBox = new HBox(10);
+        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
+
+        root.getChildren().addAll(titleLabel, beratBadanTextField, catatanTextField, tanggalTextField, buttonBox);
 
         setRoot(root);
     }
