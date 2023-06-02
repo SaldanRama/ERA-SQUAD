@@ -56,6 +56,11 @@ public class TableGulaDarah extends Scene {
         coloumn3.setCellValueFactory(new PropertyValueFactory<>("catatan"));
         coloumn4.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
 
+        coloumn1.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
+        coloumn2.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
+        coloumn3.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
+        coloumn4.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
+
         tableGulaDarah.getColumns().addAll(coloumn1, coloumn2, coloumn3, coloumn4);
         tableGulaDarah.setItems(gulaDarahList);
 
@@ -68,14 +73,14 @@ public class TableGulaDarah extends Scene {
         TextField tfTanggal = new TextField();
         tfTanggal.setPromptText("Tanggal");
 
-        Button hapusButton = new Button("Hapus");
-        hapusButton.setOnAction(event -> {
-            GulaDarah selectedGulaDarah = tableGulaDarah.getSelectionModel().getSelectedItem();
-            if (selectedGulaDarah != null) {
-                gulaDarahList.remove(selectedGulaDarah);
-                daoGulaDarah.deleteData(selectedGulaDarah);
-            }
-        });
+        // Button hapusButton = new Button("Hapus");
+        // hapusButton.setOnAction(event -> {
+        //     GulaDarah selectedGulaDarah = tableGulaDarah.getSelectionModel().getSelectedItem();
+        //     if (selectedGulaDarah != null) {
+        //         gulaDarahList.remove(selectedGulaDarah);
+        //         daoGulaDarah.deleteData(selectedGulaDarah);
+        //     }
+        // });
 
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(v -> {
@@ -84,7 +89,7 @@ public class TableGulaDarah extends Scene {
         });
 
         HBox buttonBox = new HBox(10);
-        buttonBox.getChildren().addAll(tambahButton, hapusButton, kembaliButton);
+        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
 
         root.getChildren().addAll(titleLabel, buttonBox, tableGulaDarah);
 

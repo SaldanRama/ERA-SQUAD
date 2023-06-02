@@ -22,8 +22,6 @@ public class MainScene {
 
     // SCENE 1
     public void show() {
-        
-        // BUTTON
         //Gula Darah
         Image img1 = new Image(getClass().getClassLoader().getResourceAsStream("images/Gula_Darah.png"));
         ImageView imgView1 = new ImageView(img1);
@@ -86,7 +84,7 @@ public class MainScene {
         //Button Kembali
         Label titleKembali = new Label("Home");
         VBox kembaliButton = new VBox(titleKembali);
-        ImageView imageView = new ImageView("F:/New folder/ERA-SQUAD/app/src/main/resources/images/icon_home.png"); // Ganti dengan path file gambar yang sesuai
+        ImageView imageView = new ImageView("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/icon_home.png"); // Ganti dengan path file gambar yang sesuai
         titleKembali.setGraphic(imageView);
         kembaliButton.setAlignment(Pos.CENTER);
         kembaliButton.setPadding(new Insets(0));

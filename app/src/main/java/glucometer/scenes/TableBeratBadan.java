@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 public class TableBeratBadan extends Scene {
     private static ObservableList<BeratBadan> beratBadanList = FXCollections.observableArrayList();
-    // private VBox rightSide = new VBox();
+    private VBox rightSide = new VBox();
 
     public TableBeratBadan(Stage stage) {
         super(new VBox(), 480, 480);
@@ -62,6 +62,10 @@ public class TableBeratBadan extends Scene {
         coloumn1.setCellValueFactory(new PropertyValueFactory<>("beratBadan"));
         coloumn2.setCellValueFactory(new PropertyValueFactory<>("catatan"));
         coloumn3.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+
+        coloumn1.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.3));
+        coloumn2.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.35));
+        coloumn3.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.35));
 
 
         // tambah colum ke table

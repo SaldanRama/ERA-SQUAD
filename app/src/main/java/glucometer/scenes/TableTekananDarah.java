@@ -59,6 +59,12 @@ public class TableTekananDarah extends Scene {
         coloumn3.setCellValueFactory(new PropertyValueFactory<>("tangan"));
         coloumn4.setCellValueFactory(new PropertyValueFactory<>("catatan"));
         coloumn5.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+        
+        coloumn1.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
+        coloumn2.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
+        coloumn3.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
+        coloumn4.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
+        coloumn5.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
 
         // tambah colum ke table
         tableTekananDarah.getColumns().addAll(coloumn1, coloumn2, coloumn3, coloumn4, coloumn5);

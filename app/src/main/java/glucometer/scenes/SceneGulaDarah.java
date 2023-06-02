@@ -31,7 +31,7 @@ public class SceneGulaDarah extends Scene {
         gulaDarahTextField.setPromptText("Konsentrasi Gula Darah");
 
         CheckBox beforeBreakfastCheckBox = new CheckBox("Before Breakfast");
-        CheckBox afterBreakfastCheckBox = new CheckBox("after Breakfast");
+        CheckBox afterBreakfastCheckBox = new CheckBox("After Breakfast");
         CheckBox beforeLunchCheckBox = new CheckBox("Before Lunch");
         CheckBox afterLunchCheckBox = new CheckBox("After Lunch");
         CheckBox beforeDinnerCheckBox = new CheckBox("Before Dinner");
