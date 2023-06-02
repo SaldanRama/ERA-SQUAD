@@ -3,10 +3,7 @@ package glucometer.scenes;
 import java.sql.SQLException;
 
 import glucometer.dataBase.DbBeratBadan;
-import glucometer.dataBase.DbGulaDarah;
 import glucometer.models.BeratBadan;
-import glucometer.models.GulaDarah;
-import glucometer.models.Obat;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -17,7 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -28,6 +24,9 @@ public class TableBeratBadan extends Scene {
     public TableBeratBadan(Stage stage) {
         super(new VBox(), 480, 480);
         DbBeratBadan daoBeratBadan = new DbBeratBadan();
+
+        // Menghapus data yang sudah ada di dalam beratBadanList
+        beratBadanList.clear();
 
         try {
             beratBadanList.addAll(daoBeratBadan.getAll());
@@ -82,16 +81,20 @@ public class TableBeratBadan extends Scene {
         TextField tfTanggal = new TextField();
         tfTanggal.setPromptText("Tanggal");
 
+        // Button btnAdd = new Button("Tambah");
+        // btnAdd.setOnAction(v -> {
+        //     beratBadanList.add(
+        //             new BeratBadan(Integer.parseInt(tfBeratBadan.getText()), tfCatatan.getText()));
+        //     daoBeratBadan.syncData(beratBadanList);
+        // });
+
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(v -> {
             MainScene mainScene = new MainScene(stage);
             mainScene.show();
         });
 
-        HBox buttonBox = new HBox(10);
-        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
-
-        root.getChildren().addAll(titleLabel, buttonBox, tableBeratBadan);
+        root.getChildren().addAll(titleLabel, tambahButton, kembaliButton, tableBeratBadan);
 
         setRoot(root);
     }

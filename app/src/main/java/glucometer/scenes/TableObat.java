@@ -24,6 +24,10 @@ public class TableObat extends Scene {
     public TableObat(Stage stage) {
         super(new VBox(), 480, 480);
         DbObat daoObat = new DbObat();
+        
+        // Menghapus data yang sudah ada di dalam obatList
+        obatList.clear();
+
         try {
             obatList.addAll(daoObat.getAll());
         } catch (SQLException e) {
@@ -77,7 +81,7 @@ public class TableObat extends Scene {
         });
 
         HBox buttonBox = new HBox(10);
-        buttonBox.getChildren().addAll(tambahButton,kembaliButton);
+        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
 
         root.getChildren().addAll(titleLabel, buttonBox, tableObat);
 

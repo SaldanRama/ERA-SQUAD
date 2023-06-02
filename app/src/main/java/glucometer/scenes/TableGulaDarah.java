@@ -25,6 +25,9 @@ public class TableGulaDarah extends Scene {
         super(new VBox(), 480, 480);
         DbGulaDarah daoGulaDarah = new DbGulaDarah();
 
+        // Menghapus data yang sudah ada di dalam gulaDarahList
+        gulaDarahList.clear();
+
         try {
             gulaDarahList.addAll(daoGulaDarah.getAll());
             System.out.println(gulaDarahList.size());
@@ -72,15 +75,6 @@ public class TableGulaDarah extends Scene {
         tfCatatan.setPromptText("Catatan");
         TextField tfTanggal = new TextField();
         tfTanggal.setPromptText("Tanggal");
-
-        // Button hapusButton = new Button("Hapus");
-        // hapusButton.setOnAction(event -> {
-        //     GulaDarah selectedGulaDarah = tableGulaDarah.getSelectionModel().getSelectedItem();
-        //     if (selectedGulaDarah != null) {
-        //         gulaDarahList.remove(selectedGulaDarah);
-        //         daoGulaDarah.deleteData(selectedGulaDarah);
-        //     }
-        // });
 
         Button kembaliButton = new Button("Kembali");
         kembaliButton.setOnAction(v -> {

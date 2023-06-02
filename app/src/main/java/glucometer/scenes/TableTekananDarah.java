@@ -24,6 +24,10 @@ public class TableTekananDarah extends Scene {
     public TableTekananDarah(Stage stage) {
         super(new VBox(), 480, 480);
         DbTekananDarah daoTekananDarah = new DbTekananDarah();
+
+        // Menghapus data yang sudah ada di dalam tekananDarahList
+        tekananDarahList.clear();
+
         try {
             tekananDarahList.addAll(daoTekananDarah.getAll());
             System.out.println(tekananDarahList.size());
@@ -45,9 +49,8 @@ public class TableTekananDarah extends Scene {
             stage.setScene(scTekananDarah);
         });
 
-
         TableView<TekananDarah> tableTekananDarah = new TableView<>();
-        // MembuAT Table Coloumn
+        // Membuat Table Column
         TableColumn<TekananDarah, Integer> coloumn1 = new TableColumn<>("Tekanan Sistolik");
         TableColumn<TekananDarah, Integer> coloumn2 = new TableColumn<>("Tekanan Diastolik");
         TableColumn<TekananDarah, String> coloumn3 = new TableColumn<>("Tangan");
@@ -60,14 +63,14 @@ public class TableTekananDarah extends Scene {
         coloumn3.setCellValueFactory(new PropertyValueFactory<>("tangan"));
         coloumn4.setCellValueFactory(new PropertyValueFactory<>("catatan"));
         coloumn5.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
-        
+
         coloumn1.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
         coloumn2.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
         coloumn3.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
         coloumn4.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
         coloumn5.prefWidthProperty().bind(tableTekananDarah.widthProperty().multiply(0.2));
 
-        // tambah colum ke table
+        // tambah column ke table
         tableTekananDarah.getColumns().addAll(coloumn1, coloumn2, coloumn3, coloumn4, coloumn5);
 
         // Kasi nilai
