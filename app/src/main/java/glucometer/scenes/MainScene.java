@@ -20,7 +20,6 @@ public class MainScene {
         this.stage = stage;
     }
 
-    // SCENE 1
     public void show() {
         //Gula Darah
         Image img1 = new Image(getClass().getClassLoader().getResourceAsStream("images/Gula_Darah.png"));
@@ -125,22 +124,6 @@ public class MainScene {
         content.setSpacing(0);
         content.setAlignment(Pos.TOP_CENTER);
 
-        // SECTION RIGHT
-        // VBox sectionRight = new VBox(title, button1, button2, button3, button4,
-        // button5);
-        // sectionRight.setSpacing(8);
-        // sectionRight.setAlignment(Pos.CENTER);
-        // sectionRight.setPrefWidth(320);
-        // sectionRight.setId("section-right");
-
-        // button1.setOnAction(v -> {
-        // changeMenu(2);
-        // });
-
-        // VBox rootNode1 = new VBox(sectionRight);
-        // rootNode1.setAlignment(Pos.CENTER);
-        // rootNode1.getStyleClass().add("rootNode");
-
         Scene scene = new Scene(content, 480, 480);
 
         // atur css
@@ -149,89 +132,5 @@ public class MainScene {
         stage.show();
 
     }
-
-    // SCENE 2
-    // private Scene getScene2() {
-    // rightSide.getChildren().clear();
-
-    // ObservableList<GulaDarah> gulaDarah = FXCollections.observableArrayList();
-
-    // // ambil data dari database (TO DO LIST 1)
-    // DbGulaDarah dbGulaDarah = new DbGulaDarah();
-    // try {
-    // gulaDarah.addAll(dbGulaDarah.getAll());
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
-
-    // // membuat tabel view
-    // TableView<GulaDarah> tableGula = new TableView<>();
-
-    // // membuat table coloumn
-    // TableColumn<GulaDarah, Integer> coloumn1 = new TableColumn<>("Konsentrasi
-    // Gula");
-    // TableColumn<GulaDarah, String> coloumn2 = new TableColumn<>("Catatan");
-
-    // // Pasangkan
-    // coloumn1.setCellValueFactory(new PropertyValueFactory<>("gulaDarah"));
-    // coloumn2.setCellValueFactory(new PropertyValueFactory<>("catatan"));
-
-    // coloumn1.setPrefWidth((rightSide.getWidth() - 60) / 2);
-    // coloumn2.setPrefWidth((rightSide.getWidth() - 60) / 2);
-
-    // // tambah colum ke table
-    // tableGula.getColumns().addAll(coloumn1, coloumn2);
-
-    // // kasi nilai
-    // tableGula.setItems(gulaDarah);
-
-    // TextField tfGula = new TextField();
-    // tfGula.setPromptText("Konsentrasi Gula");
-    // TextField tfCatatan = new TextField();
-    // tfCatatan.setPromptText("Catatan");
-    // HBox hBox = new HBox(tfGula, tfCatatan);
-
-    // Button btnAdd = new Button("Tambah");
-    // btnAdd.setOnAction(v -> {
-    // gulaDarah.add(new GulaDarah(Integer.parseInt(tfGula.getText()),
-    // tfCatatan.getText()));
-    // dbGulaDarah.syncData(gulaDarah);
-    // });
-
-    // rightSide.getChildren().addAll(tableGula, hBox, btnAdd);
-    // return new Scene(rightSide);
-    // }
-
-    // private void changeMenu(int indexMenu) {
-    // switch (indexMenu) {
-    // case 1:
-    // stage.setScene(getScene1());
-    // stage.show();
-    // break;
-    // case 2:
-    // stage.setScene(getScene2());
-    // stage.show();
-    // break;
-    // default:
-    // break;
-    // }
-    // }
-
-    // private VBox generateRightSide(double width, double height) {
-    // VBox vBoxLayout = new VBox();
-    // vBoxLayout.setPrefSize(width, height);
-    // vBoxLayout.setMaxSize(width, height);
-    // vBoxLayout.setPadding(new Insets(24));
-    // return vBoxLayout;
-    // }
-
-    // private VBox generateLeftSide(double width, double height) {
-    // // Left Side (MENU)
-    // VBox vboxMenu = new VBox();
-    // vboxMenu.setPrefSize(width, height);
-    // vboxMenu.setMaxSize(width, height);
-    // vboxMenu.getStyleClass().add("vbox-menu");
-    // return vboxMenu;
-    // }
 
 }

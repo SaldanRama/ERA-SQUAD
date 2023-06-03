@@ -7,6 +7,7 @@ import glucometer.models.BeratBadan;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,15 +15,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TableBeratBadan extends Scene {
     private static ObservableList<BeratBadan> beratBadanList = FXCollections.observableArrayList();
-    private VBox rightSide = new VBox();
 
     public TableBeratBadan(Stage stage) {
-        super(new VBox(), 480, 480);
+        super(new BorderPane(), 480, 480);
         DbBeratBadan daoBeratBadan = new DbBeratBadan();
 
         // Menghapus data yang sudah ada di dalam beratBadanList
@@ -35,43 +39,38 @@ public class TableBeratBadan extends Scene {
             e.printStackTrace();
         }
 
-
-        // Membuat tampilan scene
-        VBox root = new VBox();
-        root.setSpacing(10);
+        BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
 
         Label titleLabel = new Label("Berat Badan");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        BorderPane.setAlignment(titleLabel, Pos.CENTER);
 
-    
         Button tambahButton = new Button("Tambah");
+        Image tambahImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/add.png");
+        ImageView tambahImageView = new ImageView(tambahImage);
+        tambahImageView.setFitWidth(16); 
+        tambahImageView.setFitHeight(16); 
+        tambahButton.setGraphic(tambahImageView);
         tambahButton.setOnAction(event -> {
             SceneBeratBadan scBeratBadan = new SceneBeratBadan(stage, beratBadanList);
             stage.setScene(scBeratBadan);
         });
 
-        // Membuat Tabel View
         TableView<BeratBadan> tableBeratBadan = new TableView<>();
-        // MembuAT Table Coloumn
-        TableColumn<BeratBadan, Integer> coloumn1 = new TableColumn<>("Berat Badan");
-        TableColumn<BeratBadan, String> coloumn2 = new TableColumn<>("Catatan");
-        TableColumn<BeratBadan, String> coloumn3 = new TableColumn<>("Tanggal");
+        TableColumn<BeratBadan, Integer> column1 = new TableColumn<>("Berat Badan");
+        TableColumn<BeratBadan, String> column2 = new TableColumn<>("Catatan");
+        TableColumn<BeratBadan, String> column3 = new TableColumn<>("Tanggal");
 
-        // Pasangkan
-        coloumn1.setCellValueFactory(new PropertyValueFactory<>("beratBadan"));
-        coloumn2.setCellValueFactory(new PropertyValueFactory<>("catatan"));
-        coloumn3.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+        column1.setCellValueFactory(new PropertyValueFactory<>("beratBadan"));
+        column2.setCellValueFactory(new PropertyValueFactory<>("catatan"));
+        column3.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
 
-        coloumn1.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.3));
-        coloumn2.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.35));
-        coloumn3.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.35));
+        column1.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.3));
+        column2.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.35));
+        column3.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.35));
 
-
-        // tambah colum ke table
-        tableBeratBadan.getColumns().addAll(coloumn1, coloumn2, coloumn3);
-
-        // Kasi nilai
+        tableBeratBadan.getColumns().addAll(column1, column2, column3);
         tableBeratBadan.setItems(beratBadanList);
 
         TextField tfBeratBadan = new TextField();
@@ -81,20 +80,26 @@ public class TableBeratBadan extends Scene {
         TextField tfTanggal = new TextField();
         tfTanggal.setPromptText("Tanggal");
 
-        // Button btnAdd = new Button("Tambah");
-        // btnAdd.setOnAction(v -> {
-        //     beratBadanList.add(
-        //             new BeratBadan(Integer.parseInt(tfBeratBadan.getText()), tfCatatan.getText()));
-        //     daoBeratBadan.syncData(beratBadanList);
-        // });
-
         Button kembaliButton = new Button("Kembali");
+        Image kembaliImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/left.png");
+        ImageView kembaliImageView = new ImageView(kembaliImage);
+        kembaliImageView.setFitWidth(16); // Atur lebar gambar
+        kembaliImageView.setFitHeight(16); // Atur tinggi gambar
+        kembaliButton.setGraphic(kembaliImageView);
         kembaliButton.setOnAction(v -> {
             MainScene mainScene = new MainScene(stage);
             mainScene.show();
         });
 
-        root.getChildren().addAll(titleLabel, tambahButton, kembaliButton, tableBeratBadan);
+        HBox buttonBox = new HBox(10);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.getChildren().add(kembaliButton);
+
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(tambahButton, tableBeratBadan, buttonBox);
+
+        root.setTop(titleLabel);
+        root.setCenter(vbox);
 
         setRoot(root);
     }

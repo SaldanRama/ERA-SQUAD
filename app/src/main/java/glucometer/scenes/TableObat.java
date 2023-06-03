@@ -7,6 +7,7 @@ import glucometer.models.Obat;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +15,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,7 +26,7 @@ public class TableObat extends Scene {
     private static ObservableList<Obat> obatList = FXCollections.observableArrayList();
 
     public TableObat(Stage stage) {
-        super(new VBox(), 480, 480);
+        super(new BorderPane(), 480, 480);
         DbObat daoObat = new DbObat();
         
         // Menghapus data yang sudah ada di dalam obatList
@@ -34,39 +38,33 @@ public class TableObat extends Scene {
             e.printStackTrace();
         }
 
-        VBox root = new VBox();
-        root.setSpacing(10);
+        BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
 
         Label titleLabel = new Label("Obat");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-
-        Button tambahButton = new Button("Tambah");
-        tambahButton.setOnAction(event -> {
-            SceneObat scObat = new SceneObat(stage, obatList);
-            stage.setScene(scObat);
-        });
+        BorderPane.setAlignment(titleLabel, Pos.CENTER);
 
         TableView<Obat> tableObat = new TableView<>();
-        TableColumn<Obat, String> coloumn1 = new TableColumn<>("Nama Obat");
-        TableColumn<Obat, Integer> coloumn2 = new TableColumn<>("Dosis");
-        TableColumn<Obat, String> coloumn3 = new TableColumn<>("Bentuk");
-        TableColumn<Obat, String> coloumn4 = new TableColumn<>("Catatan");
-        TableColumn<Obat, String> coloumn5 = new TableColumn<>("Tanggal");
+        TableColumn<Obat, String> column1 = new TableColumn<>("Nama Obat");
+        TableColumn<Obat, Integer> column2 = new TableColumn<>("Dosis");
+        TableColumn<Obat, String> column3 = new TableColumn<>("Bentuk");
+        TableColumn<Obat, String> column4 = new TableColumn<>("Catatan");
+        TableColumn<Obat, String> column5 = new TableColumn<>("Tanggal");
 
-        coloumn1.setCellValueFactory(new PropertyValueFactory<>("namaObat"));
-        coloumn2.setCellValueFactory(new PropertyValueFactory<>("dosis"));
-        coloumn3.setCellValueFactory(new PropertyValueFactory<>("bentuk"));
-        coloumn4.setCellValueFactory(new PropertyValueFactory<>("catatan"));
-        coloumn5.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+        column1.setCellValueFactory(new PropertyValueFactory<>("namaObat"));
+        column2.setCellValueFactory(new PropertyValueFactory<>("dosis"));
+        column3.setCellValueFactory(new PropertyValueFactory<>("bentuk"));
+        column4.setCellValueFactory(new PropertyValueFactory<>("catatan"));
+        column5.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
 
-        coloumn1.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
-        coloumn2.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
-        coloumn3.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
-        coloumn4.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
-        coloumn5.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+        column1.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+        column2.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+        column3.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+        column4.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
+        column5.prefWidthProperty().bind(tableObat.widthProperty().multiply(0.2));
 
-        tableObat.getColumns().addAll(coloumn1, coloumn2, coloumn3, coloumn4, coloumn5);
+        tableObat.getColumns().addAll(column1, column2, column3, column4, column5);
         tableObat.setItems(obatList);
 
         TextField tfNamaObat = new TextField();
@@ -80,16 +78,39 @@ public class TableObat extends Scene {
         TextField tfTanggal = new TextField();
         tfTanggal.setPromptText("Tanggal");
 
+        Button tambahButton = new Button("Tambah");
+        Image tambahImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/add.png");
+        ImageView tambahImageView = new ImageView(tambahImage);
+        tambahImageView.setFitWidth(16); 
+        tambahImageView.setFitHeight(16); 
+        tambahButton.setGraphic(tambahImageView);
+        tambahButton.setOnAction(event -> {
+            SceneObat scObat = new SceneObat(stage, obatList);
+            stage.setScene(scObat);
+        });
+
         Button kembaliButton = new Button("Kembali");
+        Image kembaliImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/left.png");
+        ImageView kembaliImageView = new ImageView(kembaliImage);
+        kembaliImageView.setFitWidth(16); // Atur lebar gambar
+        kembaliImageView.setFitHeight(16); // Atur tinggi gambar
+        kembaliButton.setGraphic(kembaliImageView);
         kembaliButton.setOnAction(v -> {
             MainScene mainScene = new MainScene(stage);
             mainScene.show();
         });
 
         HBox buttonBox = new HBox(10);
+        buttonBox.setAlignment(Pos.CENTER);
         buttonBox.getChildren().addAll(tambahButton, kembaliButton);
 
-        root.getChildren().addAll(titleLabel, buttonBox, tableObat);
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(tableObat, buttonBox);
+        vbox.setPadding(new Insets(10));
+
+        root.setTop(titleLabel);
+        root.setCenter(vbox);
+        BorderPane.setAlignment(vbox, Pos.CENTER);
 
         setRoot(root);
     }

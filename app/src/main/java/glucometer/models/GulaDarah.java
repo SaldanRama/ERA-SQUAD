@@ -1,43 +1,9 @@
 package glucometer.models;
 
-public class GulaDarah {
-    private int gulaDarah;
-    private String waktu;
-    private String catatan;
-    private String tanggal;
-    
+public class GulaDarah extends GulaDarahAbstract {
+
     public GulaDarah(int gulaDarah, String waktu, String catatan, String tanggal) {
-        this.gulaDarah = gulaDarah;
-        this.waktu = waktu;
-        this.catatan = catatan;
-        this.tanggal = tanggal;
+        super(gulaDarah, waktu, catatan, tanggal);
     }
-    
-    public int getGulaDarah() {
-        return gulaDarah;
-    }
-    public void setGulaDarah(int gulaDarah) {
-        this.gulaDarah = gulaDarah;
-    }
-    public String getWaktu() {
-        return waktu;
-    }
-    public void setWaktu(String waktu) {
-        this.waktu = waktu;
-    }
-    public String getCatatan() {
-        return catatan;
-    }
-    public void setCatatan(String catatan) {
-        this.catatan = catatan;
-    }
-    public String getTanggal() {
-        return tanggal;
-    }
-    public void setTanggal(String tanggal) {
-        this.tanggal = tanggal;
-    }
-    
-   
 }
 

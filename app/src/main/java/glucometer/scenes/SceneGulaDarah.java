@@ -1,5 +1,6 @@
 package glucometer.scenes;
 
+import glucometer.dataBase.AbstractDbGulaDarah;
 import glucometer.dataBase.DbGulaDarah;
 import glucometer.models.GulaDarah;
 import javafx.collections.ObservableList;
@@ -12,13 +13,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 public class SceneGulaDarah extends Scene {
-    private ObservableList<GulaDarah> gulaDarahList;
 
     public SceneGulaDarah(Stage stage, ObservableList<GulaDarah> gulaDarahList) {
         super(new VBox(), 480, 480);
-        this.gulaDarahList = gulaDarahList;
 
         VBox root = new VBox();
         root.setSpacing(10);
@@ -50,6 +52,11 @@ public class SceneGulaDarah extends Scene {
         buttonBox.setSpacing(10);
 
         Button tambahButton = new Button("Tambah");
+        Image tambahImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/add.png");
+        ImageView tambahImageView = new ImageView(tambahImage);
+        tambahImageView.setFitWidth(16); 
+        tambahImageView.setFitHeight(16); 
+        tambahButton.setGraphic(tambahImageView);
         tambahButton.setOnAction(event -> {
             int gulaDarah = Integer.parseInt(gulaDarahTextField.getText());
             String catatan = catatanTextField.getText();
@@ -95,7 +102,7 @@ public class SceneGulaDarah extends Scene {
             gulaDarahList.add(gulaDarahObj);
 
             // Simpan ke database (TO DO LIST 1)
-            DbGulaDarah dbGulaDarah = new DbGulaDarah();
+            AbstractDbGulaDarah dbGulaDarah = new AbstractDbGulaDarah();
             dbGulaDarah.addData(gulaDarahObj);
 
             // Clear input fields
@@ -115,6 +122,11 @@ public class SceneGulaDarah extends Scene {
         });
 
         Button kembaliButton = new Button("Kembali");
+        Image kembaliImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/left.png");
+        ImageView kembaliImageView = new ImageView(kembaliImage);
+        kembaliImageView.setFitWidth(16); // Atur lebar gambar
+        kembaliImageView.setFitHeight(16); // Atur tinggi gambar
+        kembaliButton.setGraphic(kembaliImageView);
         kembaliButton.setOnAction(v -> {
             TableGulaDarah tableGulaDarah = new TableGulaDarah(stage);
             stage.setScene(tableGulaDarah);

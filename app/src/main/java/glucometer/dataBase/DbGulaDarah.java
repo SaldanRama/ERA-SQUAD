@@ -13,9 +13,8 @@ import javafx.collections.ObservableList;
 
 
 
-public class DbGulaDarah {
+public abstract class DbGulaDarah {
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS gulaDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, gulaDarah INTEGER, waktu TEXT, catatan TEXT, tanggal TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO gulaDarah (gulaDarah, waktu, catatan, tanggal) VALUES (?, ?, ?, ?)";
     private Statement stmt;
     private Connection conn;
 
@@ -31,18 +30,7 @@ public class DbGulaDarah {
         }
     }
 
-    public void addData(GulaDarah gulaDarah) {
-        try (Connection conn = DataBaseConfig.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(INSERT_QUERY)) {
-            stmt.setInt(1, gulaDarah.getGulaDarah());
-            stmt.setString(2, gulaDarah.getWaktu());
-            stmt.setString(3, gulaDarah.getCatatan());
-            stmt.setString(4, gulaDarah.getTanggal());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    public abstract void addData(GulaDarah gulaDarah);
 
     public ObservableList<GulaDarah> getAll() throws SQLException {
         ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();

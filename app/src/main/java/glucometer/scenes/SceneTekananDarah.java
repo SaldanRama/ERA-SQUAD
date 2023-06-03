@@ -12,10 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 public class SceneTekananDarah extends Scene {
-    // private static ObservableList<TekananDarah> tekananDarahList;
-
     public SceneTekananDarah(Stage stage, ObservableList<TekananDarah> tekananDarahList) {
         super(new VBox(), 480, 480);
 
@@ -42,6 +43,11 @@ public class SceneTekananDarah extends Scene {
         tanggalTextField.setPromptText("Tanggal");
 
         Button tambahButton = new Button("Tambah");
+        Image tambahImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/add.png");
+        ImageView tambahImageView = new ImageView(tambahImage);
+        tambahImageView.setFitWidth(16); 
+        tambahImageView.setFitHeight(16); 
+        tambahButton.setGraphic(tambahImageView);
         tambahButton.setOnAction(event -> {
             int tekananSistolik = Integer.parseInt(tekananDarahTextField.getText());
             int tekananDiastolik = Integer.parseInt(tekananDarahTextField2.getText());
@@ -74,7 +80,13 @@ public class SceneTekananDarah extends Scene {
             catatanTextField.clear();
             tanggalTextField.clear();
         });
+        
         Button kembaliButton = new Button("Kembali");
+        Image kembaliImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/left.png");
+        ImageView kembaliImageView = new ImageView(kembaliImage);
+        kembaliImageView.setFitWidth(16); // Atur lebar gambar
+        kembaliImageView.setFitHeight(16); // Atur tinggi gambar
+        kembaliButton.setGraphic(kembaliImageView);
         kembaliButton.setOnAction(event -> {
             stage.setScene(new TableTekananDarah(stage));
         });

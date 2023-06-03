@@ -2,11 +2,13 @@ package glucometer.scenes;
 
 import java.sql.SQLException;
 
+import glucometer.dataBase.AbstractDbGulaDarah;
 import glucometer.dataBase.DbGulaDarah;
 import glucometer.models.GulaDarah;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +16,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,8 +27,8 @@ public class TableGulaDarah extends Scene {
     private static ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();
 
     public TableGulaDarah(Stage stage) {
-        super(new VBox(), 480, 480);
-        DbGulaDarah daoGulaDarah = new DbGulaDarah();
+        super(new BorderPane(), 480, 480);
+        AbstractDbGulaDarah daoGulaDarah = new AbstractDbGulaDarah();
 
         // Menghapus data yang sudah ada di dalam gulaDarahList
         gulaDarahList.clear();
@@ -35,36 +40,41 @@ public class TableGulaDarah extends Scene {
             e.printStackTrace();
         }
 
-        VBox root = new VBox();
-        root.setSpacing(10);
+        BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
 
         Label titleLabel = new Label("Gula Darah");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        BorderPane.setAlignment(titleLabel, Pos.CENTER);
 
         Button tambahButton = new Button("Tambah");
+        Image tambahImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/add.png");
+        ImageView tambahImageView = new ImageView(tambahImage);
+        tambahImageView.setFitWidth(16); 
+        tambahImageView.setFitHeight(16); 
+        tambahButton.setGraphic(tambahImageView);
         tambahButton.setOnAction(event -> {
             SceneGulaDarah scGulaDarah = new SceneGulaDarah(stage, gulaDarahList);
             stage.setScene(scGulaDarah);
         });
 
         TableView<GulaDarah> tableGulaDarah = new TableView<>();
-        TableColumn<GulaDarah, Integer> coloumn1 = new TableColumn<>("Konsentrasi Gula Darah");
-        TableColumn<GulaDarah, String> coloumn2 = new TableColumn<>("Waktu");
-        TableColumn<GulaDarah, String> coloumn3 = new TableColumn<>("Catatan");
-        TableColumn<GulaDarah, String> coloumn4 = new TableColumn<>("Tanggal");
+        TableColumn<GulaDarah, Integer> column1 = new TableColumn<>("Konsentrasi Gula Darah");
+        TableColumn<GulaDarah, String> column2 = new TableColumn<>("Waktu");
+        TableColumn<GulaDarah, String> column3 = new TableColumn<>("Catatan");
+        TableColumn<GulaDarah, String> column4 = new TableColumn<>("Tanggal");
 
-        coloumn1.setCellValueFactory(new PropertyValueFactory<>("gulaDarah"));
-        coloumn2.setCellValueFactory(new PropertyValueFactory<>("waktu"));
-        coloumn3.setCellValueFactory(new PropertyValueFactory<>("catatan"));
-        coloumn4.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+        column1.setCellValueFactory(new PropertyValueFactory<>("gulaDarah"));
+        column2.setCellValueFactory(new PropertyValueFactory<>("waktu"));
+        column3.setCellValueFactory(new PropertyValueFactory<>("catatan"));
+        column4.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
 
-        coloumn1.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
-        coloumn2.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
-        coloumn3.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
-        coloumn4.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
+        column1.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
+        column2.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
+        column3.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
+        column4.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
 
-        tableGulaDarah.getColumns().addAll(coloumn1, coloumn2, coloumn3, coloumn4);
+        tableGulaDarah.getColumns().addAll(column1, column2, column3, column4);
         tableGulaDarah.setItems(gulaDarahList);
 
         TextField tfGulaDarah = new TextField();
@@ -77,15 +87,25 @@ public class TableGulaDarah extends Scene {
         tfTanggal.setPromptText("Tanggal");
 
         Button kembaliButton = new Button("Kembali");
+        Image kembaliImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/left.png");
+        ImageView kembaliImageView = new ImageView(kembaliImage);
+        kembaliImageView.setFitWidth(16); // Atur lebar gambar
+        kembaliImageView.setFitHeight(16); // Atur tinggi gambar
+        kembaliButton.setGraphic(kembaliImageView);
         kembaliButton.setOnAction(v -> {
             MainScene mainScene = new MainScene(stage);
             mainScene.show();
         });
 
         HBox buttonBox = new HBox(10);
-        buttonBox.getChildren().addAll(tambahButton, kembaliButton);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.getChildren().add(kembaliButton);
 
-        root.getChildren().addAll(titleLabel, buttonBox, tableGulaDarah);
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(tambahButton, tableGulaDarah, buttonBox);
+
+        root.setTop(titleLabel);
+        root.setCenter(vbox);
 
         setRoot(root);
     }
