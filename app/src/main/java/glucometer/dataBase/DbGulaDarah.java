@@ -2,50 +2,19 @@ package glucometer.dataBase;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
 import glucometer.models.GulaDarah;
 import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-// public class DbGulaDarah {
-//     private Connection conn;
-//     private Statement stmt;
 
-//     public DbGulaDarah() {
-//         conn = DataBaseConfig.getConnection();
-//         setupTable();
-//     }
-
-//     private void setupTable() {
-//         try {
-//             DatabaseMetaData meta = conn.getMetaData();
-//             ResultSet rs = meta.getTables(null, null, "gulaDarah", null);
-//             if (!rs.next()) {
-//                 stmt = conn.createStatement();
-//                 String sql = "CREATE TABLE gulaDarah " +
-//                         "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-//                         " konsentrasiGula INTEGER NOT NULL, " +
-//                         " catatan TEXT NOT NULL)";
-//                 stmt.executeUpdate(sql);
-//             }
-//         } catch (SQLException e) {
-//             e.printStackTrace();
-//         }
-//     }
-
-
-
-public class DbGulaDarah {
-    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS gulaDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, gulaDarah INTEGER, waktu TEXT, catatan TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO gulaDarah (gulaDarah, waktu, catatan) VALUES (?, ?, ?)";
+public abstract class DbGulaDarah {
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS gulaDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, gulaDarah INTEGER, waktu TEXT, catatan TEXT, tanggal TEXT)";
     private Statement stmt;
     private Connection conn;
 
@@ -61,17 +30,7 @@ public class DbGulaDarah {
         }
     }
 
-    public void addData(GulaDarah gulaDarah) {
-        try (Connection conn = DataBaseConfig.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(INSERT_QUERY)) {
-            stmt.setInt(1, gulaDarah.getGulaDarah());
-            stmt.setString(2, gulaDarah.getWaktu());
-            stmt.setString(3, gulaDarah.getCatatan());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    public abstract void addData(GulaDarah gulaDarah);
 
     public ObservableList<GulaDarah> getAll() throws SQLException {
         ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();
@@ -83,8 +42,9 @@ public class DbGulaDarah {
                 int gulaDarah = rs.getInt("gulaDarah");
                 String waktu = rs.getString("waktu");
                 String catatan = rs.getString("catatan");
+                String tanggal = rs.getString("tanggal");
 
-                GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan);
+                GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan, tanggal);
                 gulaDarahList.add(gulaDarahObj);
             }
         } catch (SQLException e) {
@@ -100,11 +60,13 @@ public class DbGulaDarah {
             stmt = conn.createStatement();
             for (GulaDarah gula : listGulaDarah) {
                 String sql = String.format("""
-                        INSERT INTO gulaDarah(gulaDarah, catatan)
+                        INSERT INTO gulaDarah(gulaDarah, waktu, catatan, tanggal)
                         VALUES('%d', '%s');
                         """,
                         gula.getGulaDarah(),
-                        gula.getCatatan());
+                        gula.getWaktu(),
+                        gula.getCatatan(),
+                        gula.getTanggal());
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {
@@ -112,4 +74,7 @@ public class DbGulaDarah {
         }
     
 }
+
+    public void deleteData(GulaDarah selectedGulaDarah) {
+    }
 }

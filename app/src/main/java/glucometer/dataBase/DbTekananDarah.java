@@ -2,49 +2,19 @@ package glucometer.dataBase;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
-import glucometer.models.GulaDarah;
 import glucometer.models.TekananDarah;
 import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-// public class DbGulaDarah {
-//     private Connection conn;
-//     private Statement stmt;
-
-//     public DbGulaDarah() {
-//         conn = DataBaseConfig.getConnection();
-//         setupTable();
-//     }
-
-//     private void setupTable() {
-//         try {
-//             DatabaseMetaData meta = conn.getMetaData();
-//             ResultSet rs = meta.getTables(null, null, "gulaDarah", null);
-//             if (!rs.next()) {
-//                 stmt = conn.createStatement();
-//                 String sql = "CREATE TABLE gulaDarah " +
-//                         "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-//                         " konsentrasiGula INTEGER NOT NULL, " +
-//                         " catatan TEXT NOT NULL)";
-//                 stmt.executeUpdate(sql);
-//             }
-//         } catch (SQLException e) {
-//             e.printStackTrace();
-//         }
-//     }
-
 
 public class DbTekananDarah {
-    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS tekananDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, tekananSistolik INTEGER, tekananDiastolik INTEGER, tangan TEXT, catatan TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO tekananDarah (tekananSistolik, tekananDiastolik, tangan, catatan) VALUES (?, ?, ?)";
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS tekananDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, tekananSistolik INTEGER, tekananDiastolik INTEGER, tangan TEXT, catatan TEXT, tanggal TEXT)";
+    private static final String INSERT_QUERY = "INSERT INTO tekananDarah (tekananSistolik, tekananDiastolik, tangan, catatan, tanggal) VALUES (?, ?, ?, ?, ?)";
     private Statement stmt;
     private Connection conn;
 
@@ -67,6 +37,7 @@ public class DbTekananDarah {
             stmt.setInt(2, tekananDarah.getTekananDiastolik());
             stmt.setString(3, tekananDarah.getTangan());
             stmt.setString(4, tekananDarah.getCatatan());
+            stmt.setString(5, tekananDarah.getTanggal());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,8 +55,9 @@ public class DbTekananDarah {
                 int tekananDiastolik = rs.getInt("tekananDiastolik");
                 String tangan = rs.getString("tangan");
                 String catatan = rs.getString("catatan");
+                String tanggal = rs.getString("tanggal");
 
-                TekananDarah tekananDarahObj = new TekananDarah(tekananSistolik, tekananDiastolik, tangan, catatan);
+                TekananDarah tekananDarahObj = new TekananDarah(tekananSistolik, tekananDiastolik, tangan, catatan, tanggal);
                 tekananDarahList.add(tekananDarahObj);
             }
         } catch (SQLException e) {
@@ -101,13 +73,14 @@ public class DbTekananDarah {
             stmt = conn.createStatement();
             for (TekananDarah tekanan : listTekananDarah) {
                 String sql = String.format("""
-                        INSERT INTO tekananDarah(tekananSistolik, tekananDistolik, tangan, catatan)
+                        INSERT INTO tekananDarah(tekananSistolik, tekananDistolik, tangan, catatan, tanggal)
                         VALUES('%d', '%s');
                         """,
                         tekanan.getTekananSistolik(),
                         tekanan.getTekananDiastolik(),
                         tekanan.getTangan(),
                         tekanan.getCatatan());
+                        tekanan.getTanggal();
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {
