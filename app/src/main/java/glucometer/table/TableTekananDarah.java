@@ -1,9 +1,11 @@
-package glucometer.scenes;
+package glucometer.table;
 
 import java.sql.SQLException;
 
-import glucometer.dataBase.DbTekananDarah;
+import glucometer.abstract_db.AbstractDbTekananDarah;
 import glucometer.models.TekananDarah;
+import glucometer.scenes.MainScene;
+import glucometer.scenes.SceneTekananDarah;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -18,7 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -27,7 +28,7 @@ public class TableTekananDarah extends Scene {
 
     public TableTekananDarah(Stage stage) {
         super(new VBox(), 480, 480);
-        DbTekananDarah daoTekananDarah = new DbTekananDarah();
+        AbstractDbTekananDarah daoTekananDarah = new AbstractDbTekananDarah();
 
         // Menghapus data yang sudah ada di dalam tekananDarahList
         tekananDarahList.clear();
@@ -94,9 +95,7 @@ public class TableTekananDarah extends Scene {
         tfTangan.setPromptText("Tangan");
         TextField tfCatatan = new TextField();
         tfCatatan.setPromptText("Catatan");
-        TextField tfTanggal = new TextField();
-        tfTanggal.setPromptText("Tanggal");
-
+      
         Button kembaliButton = new Button("Kembali");
         Image kembaliImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/left.png");
         ImageView kembaliImageView = new ImageView(kembaliImage);

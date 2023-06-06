@@ -2,12 +2,12 @@ package glucometer.dataBase;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import glucometer.config.DataBaseConfig;
 import glucometer.models.GulaDarah;
-import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

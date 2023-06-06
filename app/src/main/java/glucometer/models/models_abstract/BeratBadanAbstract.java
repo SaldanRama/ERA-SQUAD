@@ -1,6 +1,6 @@
-package glucometer.models;
+package glucometer.models.models_abstract;
 
-public abstract class BeratBadanAbstract {
+public class BeratBadanAbstract {
     private int beratBadan;
     private String catatan;
     private String tanggal;

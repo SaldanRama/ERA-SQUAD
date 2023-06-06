@@ -1,8 +1,10 @@
 package glucometer.scenes;
 
-import glucometer.dataBase.AbstractDbGulaDarah;
-import glucometer.dataBase.DbGulaDarah;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import glucometer.abstract_db.AbstractDbGulaDarah;
 import glucometer.models.GulaDarah;
+import glucometer.table.TableGulaDarah;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -45,8 +47,6 @@ public class SceneGulaDarah extends Scene {
 
         TextField catatanTextField = new TextField();
         catatanTextField.setPromptText("Tambah Catatan Disini");
-        TextField tanggalTextField = new TextField();
-        tanggalTextField.setPromptText("Tanggal");
 
         HBox buttonBox = new HBox();
         buttonBox.setSpacing(10);
@@ -60,37 +60,39 @@ public class SceneGulaDarah extends Scene {
         tambahButton.setOnAction(event -> {
             int gulaDarah = Integer.parseInt(gulaDarahTextField.getText());
             String catatan = catatanTextField.getText();
-            String tanggal = tanggalTextField.getText();
+            LocalDate tanggal = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String tanggalString = tanggal.format(formatter);
             String waktu = "";
 
             if (beforeBreakfastCheckBox.isSelected()) {
-                waktu += "Before Breakfast";
+                waktu += " Before Breakfast,";
             }
             if (afterBreakfastCheckBox.isSelected()) {
-                waktu += "After Breakfast";
+                waktu += " After Breakfast,";
             }
             if (beforeLunchCheckBox.isSelected()) {
-                waktu += "Before Lunch";
+                waktu += " Before Lunch,";
             }
             if (afterLunchCheckBox.isSelected()) {
-                waktu += "After Lunch";
+                waktu += " After Lunch,";
             }
             if (beforeDinnerCheckBox.isSelected()) {
-                waktu += "Before Dinner";
+                waktu += " Before Dinner,";
             }
             if (afterDinnerCheckBox.isSelected()) {
-                waktu += "After Dinner";
+                waktu += " After Dinner,";
                 if (beforeSleepCheckBox.isSelected()) {
-                    waktu += "Before Sleep";
+                    waktu += " Before Sleep,";
                 }
                 if (afterSleepCheckBox.isSelected()) {
-                    waktu += "After Sleep";
+                    waktu += " After Sleep,";
                 }
                 if (fastingCheckBox.isSelected()) {
-                    waktu += "Fasting";
+                    waktu += " Fasting,";
                 }
                 if (otherCheckBox.isSelected()) {
-                    waktu += "Other";
+                    waktu += " Other,";
                 }
 
                 if (!waktu.isEmpty()) {
@@ -98,7 +100,7 @@ public class SceneGulaDarah extends Scene {
                 }
             }
 
-            GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan, tanggal);
+            GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan, tanggalString);
             gulaDarahList.add(gulaDarahObj);
 
             // Simpan ke database (TO DO LIST 1)
@@ -118,7 +120,6 @@ public class SceneGulaDarah extends Scene {
             fastingCheckBox.setSelected(false);
             otherCheckBox.setSelected(false);
             catatanTextField.clear();
-            tanggalTextField.clear();
         });
 
         Button kembaliButton = new Button("Kembali");
@@ -136,7 +137,7 @@ public class SceneGulaDarah extends Scene {
 
         root.getChildren().addAll(titleLabel, gulaDarahTextField, beforeBreakfastCheckBox, afterBreakfastCheckBox,
                 beforeLunchCheckBox, afterLunchCheckBox, beforeDinnerCheckBox, afterDinnerCheckBox, beforeSleepCheckBox,
-                afterSleepCheckBox, fastingCheckBox, otherCheckBox, catatanTextField, tanggalTextField, buttonBox);
+                afterSleepCheckBox, fastingCheckBox, otherCheckBox, catatanTextField, buttonBox);
 
         setRoot(root);
     }

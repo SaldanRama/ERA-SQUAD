@@ -1,4 +1,4 @@
-package glucometer.models;
+package glucometer.models.models_abstract;
 
 public abstract class ObatAbstract {
     private String namaObat;

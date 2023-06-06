@@ -2,20 +2,18 @@ package glucometer.dataBase;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import glucometer.config.DataBaseConfig;
 import glucometer.models.BeratBadan;
-import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
 
-public class DbBeratBadan {
+public abstract class DbBeratBadan {
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS beratBadan (id INTEGER PRIMARY KEY AUTOINCREMENT, beratBadan INTEGER, catatan TEXT, tanggal TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO beratBadan (beratBadan, catatan, tanggal) VALUES (?, ?, ?)";
     private Statement stmt;
     private Connection conn;
 
@@ -31,17 +29,7 @@ public class DbBeratBadan {
         }
     }
 
-    public void addData(BeratBadan beratBadan) {
-        try (Connection conn = DataBaseConfig.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(INSERT_QUERY)) {
-            stmt.setInt(1, beratBadan.getBeratBadan());
-            stmt.setString(2, beratBadan.getCatatan());
-            stmt.setString(3, beratBadan.getTanggal());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    public abstract void addData(BeratBadan beratBadan);
 
     public ObservableList<BeratBadan> getAll() throws SQLException {
         ObservableList<BeratBadan> beratBadanList = FXCollections.observableArrayList();

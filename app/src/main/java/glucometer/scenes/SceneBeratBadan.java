@@ -1,7 +1,10 @@
 package glucometer.scenes;
 
-import glucometer.dataBase.DbBeratBadan;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import glucometer.abstract_db.AbstractDbBeratBadan;
 import glucometer.models.BeratBadan;
+import glucometer.table.TableBeratBadan;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 
 public class SceneBeratBadan extends Scene {
     public SceneBeratBadan(Stage stage, ObservableList<BeratBadan> beratBadanList) {
@@ -31,8 +33,8 @@ public class SceneBeratBadan extends Scene {
         beratBadanTextField.setPromptText("Berat Badan");
         TextField catatanTextField = new TextField();
         catatanTextField.setPromptText("Tambah Catatan Disini");
-        TextField tanggalTextField = new TextField();
-        tanggalTextField.setPromptText("Tanggal");
+        // TextField tanggalTextField = new TextField();
+        // tanggalTextField.setPromptText("Tanggal");
 
         Button tambahButton = new Button("Tambah");
         Image tambahImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/add.png");
@@ -43,19 +45,21 @@ public class SceneBeratBadan extends Scene {
         tambahButton.setOnAction(event -> {
             int beratBadan = Integer.parseInt(beratBadanTextField.getText());
             String catatan = catatanTextField.getText();
-            String tanggal = tanggalTextField.getText();
+            LocalDate tanggal = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String tanggalString = tanggal.format(formatter);
 
-            BeratBadan beratBadanObj = new BeratBadan(beratBadan, catatan, tanggal);
+            BeratBadan beratBadanObj = new BeratBadan(beratBadan, catatan, tanggalString);
             beratBadanList.add(beratBadanObj);
 
             // Simpan ke database (TO DO LIST 1)
-            DbBeratBadan dbBeratBadan = new DbBeratBadan();
+            AbstractDbBeratBadan dbBeratBadan = new AbstractDbBeratBadan();
             dbBeratBadan.addData(beratBadanObj);
 
             // Clear input fields
             beratBadanTextField.clear();
             catatanTextField.clear();
-            tanggalTextField.clear();
+            // tanggalTextField.clear();
         });
 
         Button kembaliButton = new Button("Kembali");
@@ -71,7 +75,7 @@ public class SceneBeratBadan extends Scene {
         HBox buttonBox = new HBox(10);
         buttonBox.getChildren().addAll(tambahButton, kembaliButton);
 
-        root.getChildren().addAll(titleLabel, beratBadanTextField, catatanTextField, tanggalTextField, buttonBox);
+        root.getChildren().addAll(titleLabel, beratBadanTextField, catatanTextField, buttonBox);
 
         setRoot(root);
     }

@@ -1,9 +1,11 @@
-package glucometer.scenes;
+package glucometer.table;
 
 import java.sql.SQLException;
 
-import glucometer.dataBase.DbObat;
+import glucometer.abstract_db.AbstractDbObat;
 import glucometer.models.Obat;
+import glucometer.scenes.MainScene;
+import glucometer.scenes.SceneObat;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -27,7 +29,7 @@ public class TableObat extends Scene {
 
     public TableObat(Stage stage) {
         super(new BorderPane(), 480, 480);
-        DbObat daoObat = new DbObat();
+        AbstractDbObat daoObat = new AbstractDbObat();
         
         // Menghapus data yang sudah ada di dalam obatList
         obatList.clear();
@@ -75,8 +77,6 @@ public class TableObat extends Scene {
         tfBentuk.setPromptText("Bentuk");
         TextField tfCatatan = new TextField();
         tfCatatan.setPromptText("Catatan");
-        TextField tfTanggal = new TextField();
-        tfTanggal.setPromptText("Tanggal");
 
         Button tambahButton = new Button("Tambah");
         Image tambahImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/add.png");

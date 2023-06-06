@@ -1,7 +1,11 @@
 package glucometer.scenes;
 
-import glucometer.dataBase.DbTekananDarah;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import glucometer.abstract_db.AbstractDbTekananDarah;
 import glucometer.models.TekananDarah;
+import glucometer.table.TableTekananDarah;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -39,8 +43,6 @@ public class SceneTekananDarah extends Scene {
         
         TextField catatanTextField = new TextField();
         catatanTextField.setPromptText("Tambah Catatan Disini");
-        TextField tanggalTextField = new TextField();
-        tanggalTextField.setPromptText("Tanggal");
 
         Button tambahButton = new Button("Tambah");
         Image tambahImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/add.png");
@@ -52,7 +54,9 @@ public class SceneTekananDarah extends Scene {
             int tekananSistolik = Integer.parseInt(tekananDarahTextField.getText());
             int tekananDiastolik = Integer.parseInt(tekananDarahTextField2.getText());
             String catatan = catatanTextField.getText();
-            String tanggal = tanggalTextField.getText();
+            LocalDate tanggal = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String tanggalString = tanggal.format(formatter);
             String tangan = "";
 
             if (rightArmCheckBox.isSelected()) {
@@ -65,11 +69,11 @@ public class SceneTekananDarah extends Scene {
                 tangan = tangan.substring(0, tangan.length() - 2);
             }
 
-            TekananDarah tekananDarahObj = new TekananDarah(tekananSistolik, tekananDiastolik, tangan, catatan, tanggal);
+            TekananDarah tekananDarahObj = new TekananDarah(tekananSistolik, tekananDiastolik, tangan, catatan, tanggalString);
             tekananDarahList.add(tekananDarahObj);
 
             // Simpan ke database (TO DO LIST 1)
-            DbTekananDarah dbTekananDarah = new DbTekananDarah();
+            AbstractDbTekananDarah dbTekananDarah = new AbstractDbTekananDarah();
             dbTekananDarah.addData(tekananDarahObj);
 
             // Clear input fields
@@ -78,7 +82,6 @@ public class SceneTekananDarah extends Scene {
             rightArmCheckBox.setSelected(false);
             leftArmCheckBox.setSelected(false);
             catatanTextField.clear();
-            tanggalTextField.clear();
         });
         
         Button kembaliButton = new Button("Kembali");
@@ -96,7 +99,7 @@ public class SceneTekananDarah extends Scene {
         buttonBox.getChildren().addAll(tambahButton, kembaliButton);
 
         root.getChildren().addAll(titleLabel, tekananDarahTextField, tekananDarahTextField2, rightArmCheckBox, leftArmCheckBox,
-            catatanTextField, tanggalTextField, buttonBox);
+            catatanTextField,  buttonBox);
 
         setRoot(root);
     }

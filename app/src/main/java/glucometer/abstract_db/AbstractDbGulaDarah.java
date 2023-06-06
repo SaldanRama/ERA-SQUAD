@@ -1,11 +1,12 @@
-package glucometer.dataBase;
+package glucometer.abstract_db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import glucometer.config.DataBaseConfig;
+import glucometer.dataBase.DbGulaDarah;
 import glucometer.models.GulaDarah;
-import glucometer.utils.DataBaseConfig;
 
 public class AbstractDbGulaDarah extends DbGulaDarah{
     private static final String INSERT_QUERY = "INSERT INTO gulaDarah (gulaDarah, waktu, catatan, tanggal) VALUES (?, ?, ?, ?)";

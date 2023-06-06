@@ -1,10 +1,10 @@
-package glucometer.scenes;
+package glucometer.table;
 
 import java.sql.SQLException;
-
-import glucometer.dataBase.AbstractDbGulaDarah;
-import glucometer.dataBase.DbGulaDarah;
-import glucometer.models.GulaDarah;
+import glucometer.abstract_db.AbstractDbBeratBadan;
+import glucometer.models.BeratBadan;
+import glucometer.scenes.MainScene;
+import glucometer.scenes.SceneBeratBadan;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -23,19 +23,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class TableGulaDarah extends Scene {
-    private static ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();
 
-    public TableGulaDarah(Stage stage) {
+public class TableBeratBadan extends Scene {
+    private static ObservableList<BeratBadan> beratBadanList = FXCollections.observableArrayList();
+
+    public TableBeratBadan(Stage stage) {
         super(new BorderPane(), 480, 480);
-        AbstractDbGulaDarah daoGulaDarah = new AbstractDbGulaDarah();
+        AbstractDbBeratBadan daoBeratBadan = new AbstractDbBeratBadan();
 
-        // Menghapus data yang sudah ada di dalam gulaDarahList
-        gulaDarahList.clear();
+        // Menghapus data yang sudah ada di dalam beratBadanList
+        beratBadanList.clear();
 
         try {
-            gulaDarahList.addAll(daoGulaDarah.getAll());
-            System.out.println(gulaDarahList.size());
+            beratBadanList.addAll(daoBeratBadan.getAll());
+            System.out.println(beratBadanList.size());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,7 +44,7 @@ public class TableGulaDarah extends Scene {
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
 
-        Label titleLabel = new Label("Gula Darah");
+        Label titleLabel = new Label("Berat Badan");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
         BorderPane.setAlignment(titleLabel, Pos.CENTER);
 
@@ -54,38 +55,31 @@ public class TableGulaDarah extends Scene {
         tambahImageView.setFitHeight(16); 
         tambahButton.setGraphic(tambahImageView);
         tambahButton.setOnAction(event -> {
-            SceneGulaDarah scGulaDarah = new SceneGulaDarah(stage, gulaDarahList);
-            stage.setScene(scGulaDarah);
+            SceneBeratBadan scBeratBadan = new SceneBeratBadan(stage, beratBadanList);
+            stage.setScene(scBeratBadan);
         });
 
-        TableView<GulaDarah> tableGulaDarah = new TableView<>();
-        TableColumn<GulaDarah, Integer> column1 = new TableColumn<>("Konsentrasi Gula Darah");
-        TableColumn<GulaDarah, String> column2 = new TableColumn<>("Waktu");
-        TableColumn<GulaDarah, String> column3 = new TableColumn<>("Catatan");
-        TableColumn<GulaDarah, String> column4 = new TableColumn<>("Tanggal");
+        TableView<BeratBadan> tableBeratBadan = new TableView<>();
+        TableColumn<BeratBadan, Integer> column1 = new TableColumn<>("Berat Badan");
+        TableColumn<BeratBadan, String> column2 = new TableColumn<>("Catatan");
+        TableColumn<BeratBadan, String> column3 = new TableColumn<>("Tanggal");
 
-        column1.setCellValueFactory(new PropertyValueFactory<>("gulaDarah"));
-        column2.setCellValueFactory(new PropertyValueFactory<>("waktu"));
-        column3.setCellValueFactory(new PropertyValueFactory<>("catatan"));
-        column4.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+        column1.setCellValueFactory(new PropertyValueFactory<>("beratBadan"));
+        column2.setCellValueFactory(new PropertyValueFactory<>("catatan"));
+        column3.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
 
-        column1.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
-        column2.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
-        column3.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
-        column4.prefWidthProperty().bind(tableGulaDarah.widthProperty().multiply(0.25));
+        column1.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.3));
+        column2.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.35));
+        column3.prefWidthProperty().bind(tableBeratBadan.widthProperty().multiply(0.35));
 
-        tableGulaDarah.getColumns().addAll(column1, column2, column3, column4);
-        tableGulaDarah.setItems(gulaDarahList);
+        tableBeratBadan.getColumns().addAll(column1, column2, column3); //untuk tampung tabel
+        tableBeratBadan.setItems(beratBadanList);
 
-        TextField tfGulaDarah = new TextField();
-        tfGulaDarah.setPromptText("Konsentrasi Gula Darah");
-        TextField tfWaktu = new TextField();
-        tfWaktu.setPromptText("Waktu");
+        TextField tfBeratBadan = new TextField();
+        tfBeratBadan.setPromptText("Berat Badan");
         TextField tfCatatan = new TextField();
         tfCatatan.setPromptText("Catatan");
-        TextField tfTanggal = new TextField();
-        tfTanggal.setPromptText("Tanggal");
-
+       
         Button kembaliButton = new Button("Kembali");
         Image kembaliImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/left.png");
         ImageView kembaliImageView = new ImageView(kembaliImage);
@@ -102,7 +96,7 @@ public class TableGulaDarah extends Scene {
         buttonBox.getChildren().add(kembaliButton);
 
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(tambahButton, tableGulaDarah, buttonBox);
+        vbox.getChildren().addAll(tambahButton, tableBeratBadan, buttonBox);
 
         root.setTop(titleLabel);
         root.setCenter(vbox);

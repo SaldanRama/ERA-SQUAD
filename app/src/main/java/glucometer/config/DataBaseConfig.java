@@ -1,4 +1,4 @@
-package glucometer.utils;
+package glucometer.config;
 
 
 import java.sql.Connection;

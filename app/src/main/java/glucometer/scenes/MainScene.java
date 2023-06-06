@@ -1,5 +1,9 @@
 package glucometer.scenes;
 
+import glucometer.table.TableBeratBadan;
+import glucometer.table.TableGulaDarah;
+import glucometer.table.TableObat;
+import glucometer.table.TableTekananDarah;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
 public class MainScene {
     private Stage stage;
 
@@ -21,7 +24,7 @@ public class MainScene {
     }
 
     public void show() {
-        //Gula Darah
+        // Gula Darah
         Image img1 = new Image(getClass().getClassLoader().getResourceAsStream("images/Gula_Darah.png"));
         ImageView imgView1 = new ImageView(img1);
         imgView1.setFitWidth(100);
@@ -35,8 +38,7 @@ public class MainScene {
             stage.setScene(tbGulaDarah);
         });
 
-
-        //Tekanan Darah
+        // Tekanan Darah
         Image img2 = new Image(getClass().getClassLoader().getResourceAsStream("images/Tekanan_Darah.png"));
         ImageView imgView2 = new ImageView(img2);
         imgView2.setFitWidth(100);
@@ -50,8 +52,7 @@ public class MainScene {
             stage.setScene(tbTekananDarah);
         });
 
-
-        //Obat-obatan
+        // Obat-obatan
         Image img3 = new Image(getClass().getClassLoader().getResourceAsStream("images/Obat_Obatan.png"));
         ImageView imgView3 = new ImageView(img3);
         imgView3.setFitWidth(100);
@@ -65,8 +66,7 @@ public class MainScene {
             stage.setScene(tbObat);
         });
 
-
-        //Berat Badan
+        // Berat Badan
         Image img4 = new Image(getClass().getClassLoader().getResourceAsStream("images/Berat_Badan.png"));
         ImageView imgView4 = new ImageView(img4);
         imgView4.setFitWidth(100);
@@ -80,21 +80,27 @@ public class MainScene {
             stage.setScene(tbBeratBadan);
         });
 
-        //Button Kembali
+        // Button Kembali
         Label titleKembali = new Label("Home");
         VBox kembaliButton = new VBox(titleKembali);
-        ImageView imageView = new ImageView("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/icon_home.png"); // Ganti dengan path file gambar yang sesuai
+        ImageView imageView = new ImageView(
+                "D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/icon_home.png"); // Ganti
+                                                                                                                    // dengan
+                                                                                                                    // path
+                                                                                                                    // file
+                                                                                                                    // gambar
+                                                                                                                    // yang
+                                                                                                                    // sesuai
         titleKembali.setGraphic(imageView);
         kembaliButton.setAlignment(Pos.CENTER);
         kembaliButton.setPadding(new Insets(0));
-        VBox.setMargin(kembaliButton, new Insets(0, 300, 0, 300));
+        VBox.setMargin(kembaliButton, new Insets(40, 300, 0, 300));
         kembaliButton.getStyleClass().add("custom-button");
-        
+
         kembaliButton.setOnMouseClicked(v -> {
             HomeScene homeScene = new HomeScene(stage);
             homeScene.show();
         });
-        
 
         VBox sectionLeft = new VBox(tombol1, tombol2);
         sectionLeft.setSpacing(20);
@@ -119,10 +125,10 @@ public class MainScene {
         spTitle.setPrefHeight(70);
         spTitle.setStyle("-fx-background-color: #9ED0F3;");
 
-
         VBox content = new VBox(spTitle, rootNode, kembaliButton);
         content.setSpacing(0);
         content.setAlignment(Pos.TOP_CENTER);
+        content.setStyle("-fx-background-color: white");
 
         Scene scene = new Scene(content, 480, 480);
 

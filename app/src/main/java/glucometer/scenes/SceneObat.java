@@ -1,7 +1,11 @@
 package glucometer.scenes;
 
-import glucometer.dataBase.DbObat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import glucometer.abstract_db.AbstractDbObat;
 import glucometer.models.Obat;
+import glucometer.table.TableObat;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -45,9 +49,6 @@ public class SceneObat extends Scene {
         TextField catatanTextField = new TextField();
         catatanTextField.setPromptText("Tambah Catatan Disini");
 
-        TextField tanggalTextField = new TextField();
-        tanggalTextField.setPromptText("Tanggal");
-
         Button tambahButton = new Button("Tambah");
         Image tambahImage = new Image("D:/SEMESTER 2/PRAKTIKUM/PROJECT_AKHIR_OOP/ERA-SQUAD/app/src/main/resources/images/add.png");
         ImageView tambahImageView = new ImageView(tambahImage);
@@ -58,7 +59,9 @@ public class SceneObat extends Scene {
             String namaObat = obatTextField.getText();
             int dosis = Integer.parseInt(obatTextField2.getText());
             String catatan = catatanTextField.getText();
-            String tanggal = tanggalTextField.getText();
+            LocalDate tanggal = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String tanggalString = tanggal.format(formatter);
             String bentuk = "";
 
             if (mgCheckBox.isSelected()) {
@@ -77,10 +80,10 @@ public class SceneObat extends Scene {
                 bentuk = bentuk.substring(0, bentuk.length() - 2);
             }
 
-            Obat obatObj = new Obat(namaObat, dosis, bentuk, catatan, tanggal);
+            Obat obatObj = new Obat(namaObat, dosis, bentuk, catatan, tanggalString);
             obatList.add(obatObj);
 
-            DbObat dbObat = new DbObat();
+            AbstractDbObat dbObat = new AbstractDbObat();
             dbObat.addData(obatObj);
 
             obatTextField.clear();
@@ -90,7 +93,6 @@ public class SceneObat extends Scene {
             mLCheckBox.setSelected(false);
             tabletCheckBox.setSelected(false);
             catatanTextField.clear();
-            tanggalTextField.clear();
         });
 
         Button kembaliButton = new Button("Kembali");
@@ -108,7 +110,7 @@ public class SceneObat extends Scene {
         buttonBox.getChildren().addAll(tambahButton, kembaliButton);
 
         root.getChildren().addAll(titleLabel, obatTextField, obatTextField2, checkBoxBox, catatanTextField,
-                tanggalTextField, buttonBox);
+                buttonBox);
 
         setRoot(root);
     }

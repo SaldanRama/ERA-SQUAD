@@ -2,19 +2,18 @@ package glucometer.dataBase;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import glucometer.config.DataBaseConfig;
 import glucometer.models.Obat;
-import glucometer.utils.DataBaseConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class DbObat {
+public abstract class DbObat {
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS obat (id INTEGER PRIMARY KEY AUTOINCREMENT, namaObat TEXT, dosis INTEGER, bentuk TEXT, catatan TEXT, tanggal TEXT)";
-    private static final String INSERT_QUERY = "INSERT INTO obat (namaObat, dosis, bentuk, catatan, tanggal) VALUES (?, ?, ?, ?, ?)";
     private Statement stmt;
     private Connection conn;
 
@@ -30,19 +29,7 @@ public class DbObat {
         }
     }
 
-    public void addData(Obat obat) {
-        try (Connection conn = DataBaseConfig.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(INSERT_QUERY)) {
-            stmt.setString(1, obat.getNamaObat());
-            stmt.setInt(2, obat.getDosis());
-            stmt.setString(3, obat.getBentuk());
-            stmt.setString(4, obat.getCatatan());
-            stmt.setString(5, obat.getTanggal());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    public abstract void addData(Obat obat);
 
     public ObservableList<Obat> getAll() throws SQLException {
         ObservableList<Obat> obatList = FXCollections.observableArrayList();
