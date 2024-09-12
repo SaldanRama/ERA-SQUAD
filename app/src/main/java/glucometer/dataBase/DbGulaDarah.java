@@ -2,73 +2,79 @@ package glucometer.dataBase;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import glucometer.config.DataBaseConfig;
 import glucometer.models.GulaDarah;
-import glucometer.utils.DataBaseConfig;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-public class DbGulaDarah {
-    private Connection conn;
+
+
+public abstract class DbGulaDarah {
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS gulaDarah (id INTEGER PRIMARY KEY AUTOINCREMENT, gulaDarah INTEGER, waktu TEXT, catatan TEXT, tanggal TEXT)";
     private Statement stmt;
+    private Connection conn;
 
     public DbGulaDarah() {
-        conn = DataBaseConfig.getConnection();
-        setupTable();
+        createTableIfNotExists();
     }
 
-    private void setupTable() {
-        try {
-            DatabaseMetaData meta = conn.getMetaData();
-            ResultSet rs = meta.getTables(null, null, "gulaDarah", null);
-            if (!rs.next()) {
-                stmt = conn.createStatement();
-                String sql = "CREATE TABLE gulaDarah " +
-                        "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        " konsentrasiGula INTEGER NOT NULL, " +
-                        " catatan TEXT NOT NULL)";
-                stmt.executeUpdate(sql);
-            }
+    private void createTableIfNotExists() {
+        try (Connection conn = DataBaseConfig.getConnection(); Statement stmt = conn.createStatement()) {
+            stmt.execute(CREATE_TABLE_QUERY);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public List<GulaDarah> getAll() throws SQLException {
-        try {
-            List<GulaDarah> listGulaDarah = new ArrayList<>();
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM gulaDarah");
+    public abstract void addData(GulaDarah gulaDarah);
+
+    public ObservableList<GulaDarah> getAll() throws SQLException {
+        ObservableList<GulaDarah> gulaDarahList = FXCollections.observableArrayList();
+
+        try (Connection conn = DataBaseConfig.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM gulaDarah")) {
             while (rs.next()) {
-                int gulaDarah = rs.getInt("Gula Darah");
-                String catatan = rs.getString("Catatan");
-                listGulaDarah.add(new GulaDarah(gulaDarah, catatan));
+                int gulaDarah = rs.getInt("gulaDarah");
+                String waktu = rs.getString("waktu");
+                String catatan = rs.getString("catatan");
+                String tanggal = rs.getString("tanggal");
+
+                GulaDarah gulaDarahObj = new GulaDarah(gulaDarah, waktu, catatan, tanggal);
+                gulaDarahList.add(gulaDarahObj);
             }
-            return listGulaDarah;
         } catch (SQLException e) {
             throw new SQLException();
         }
+
+        return gulaDarahList;
     }
 
     public void syncData(List<GulaDarah> listGulaDarah) {
         try {
             stmt.executeUpdate("DELETE from gulaDarah");
             stmt = conn.createStatement();
-            for (GulaDarah obat : listGulaDarah) {
+            for (GulaDarah gula : listGulaDarah) {
                 String sql = String.format("""
-                        INSERT INTO obats(gulaDarah, catatan)
+                        INSERT INTO gulaDarah(gulaDarah, waktu, catatan, tanggal)
                         VALUES('%d', '%s');
                         """,
-                        obat.getGulaDarah(),
-                        obat.getCatatan());
+                        gula.getGulaDarah(),
+                        gula.getWaktu(),
+                        gula.getCatatan(),
+                        gula.getTanggal());
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    
 }
 
+    public void deleteData(GulaDarah selectedGulaDarah) {
+    }
+}

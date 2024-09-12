@@ -1,25 +1,12 @@
 package glucometer.models;
 
-public class BeratBadan {
-    private int berat;
-    private String catatan;
-    
-    public BeratBadan(int berat, String catatan) {
-        this.berat = berat;
-        this.catatan = catatan;
+import glucometer.models.models_abstract.BeratBadanAbstract;
+
+public class BeratBadan extends BeratBadanAbstract{
+
+    public BeratBadan(int beratBadan, String catatan, String tanggal) {
+        super(beratBadan, catatan, tanggal);
     }
-    
-    public int getBerat() {
-        return berat;
-    }
-    public void setBerat(int berat) {
-        this.berat = berat;
-    }
-    public String getCatatan() {
-        return catatan;
-    }
-    public void setCatatan(String catatan) {
-        this.catatan = catatan;
-    }
+
 }
 

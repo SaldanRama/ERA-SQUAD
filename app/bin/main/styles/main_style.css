@@ -32,3 +32,34 @@
 .stack-pane {
     -fx-background-color: #c7c7c7;
 }
+
+.custom-button {
+	-fx-background-color: "#79E0EE";
+  -fx-text-fill: "#323232";
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+  -fx-min-width: 100px;
+  -fx-min-height: 35px;
+  -fx-cursor: hand;
+  -fx-background-radius: 42px;
+}
+
+.custom-button:hover {
+    -fx-background-color: #c20720; /* Warna latar belakang button saat dihover */
+}
+
+.tombol1{
+    -fx-cursor: hand;
+}
+
+.tombol2{
+    -fx-cursor: hand;
+}
+
+.tombol3{
+    -fx-cursor: hand;
+}
+
+.tombol4{
+    -fx-cursor: hand;
+}

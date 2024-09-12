@@ -1,29 +1,11 @@
 package glucometer.models;
 
-public class GulaDarah {
-    private int gulaDarah;
-    private String catatan;
+import glucometer.models.models_abstract.GulaDarahAbstract;
 
-    public GulaDarah(int gulaDarah, String catatan) {
-        this.gulaDarah = gulaDarah;
-        this.catatan = catatan;
-    }
-    
-    public int getGulaDarah() {
-        return gulaDarah;
-    }
+public class GulaDarah extends GulaDarahAbstract {
 
-    public void setGulaDarah(int gulaDarah) {
-        this.gulaDarah = gulaDarah;
+    public GulaDarah(int gulaDarah, String waktu, String catatan, String tanggal) {
+        super(gulaDarah, waktu, catatan, tanggal);
     }
-
-    public String getCatatan() {
-        return catatan;
-    }
-
-    public void setCatatan(String catatan) {
-        this.catatan = catatan;
-    }
-
 }
 

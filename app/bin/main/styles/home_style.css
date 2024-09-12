@@ -23,4 +23,9 @@
   -fx-min-width: 171px;
   -fx-min-height: 38px;
   -fx-background-radius: 42px;
+  -fx-cursor: hand;
+}
+
+.btn-explore:hover {
+  -fx-background-color: #c20720; /* Warna latar belakang button saat dihover */
 }
